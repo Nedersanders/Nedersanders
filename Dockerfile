@@ -25,5 +25,9 @@ EXPOSE 3000
 ADD --chown=sanderdev:sanderdev . /app
 VOLUME ["/app"]
 CMD ["npm", "start"]
+# Add curl for health checks
+RUN apk add --no-cache curl
+
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD top -n 1 | grep "node ./bin/www" || exit
+  CMD top -n 1 | grep "node ./bin/www" || exit 1 \
+  CMD curl -f http://localhost:3000/health || exit 1
