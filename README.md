@@ -42,5 +42,5 @@ Create a pull request from your branch. Once it is approved, we will merge it to
 - @sanderslagman Sander (server/repo owner: +31618617731)
 - @sanderverschoor (server/repo admin: +31683238115)
 
-## I need shell access
+## I need shell access to the server 
 Do you now? That can be arranged, but please provide a very solid reason to one of the admins.
