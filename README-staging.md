@@ -9,13 +9,13 @@ This document explains how to deploy and manage staging environments for the San
 2. Select "Deploy to Staging" workflow
 3. Click "Run workflow"
 4. Enter staging number (1-10) and branch name
-5. Access at `http://sander{staging_number}.imlostincode.nl`
+5. Access at `https://sander{staging_number}.imlostincode.nl`
 
 ## Architecture
 
 - **Shared PostgreSQL**: One instance with separate databases per staging environment
 - **Isolated Apps**: Each staging environment runs on its own port
-- **URL Mapping**: Staging N accessible at `http://sanderN.imlostincode.nl`
+- **URL Mapping**: Staging N accessible at `https://sanderN.imlostincode.nl`
 
 ## Files Created
 
@@ -30,7 +30,7 @@ Each staging environment gets:
 - `STAGING_ENV`: Environment number (1-10)
 - `DB_NAME`: `staging_db_${STAGING_NUM}`
 - `NODE_ENV`: staging
-- URL: `http://sander${STAGING_NUM}.imlostincode.nl`
+- URL: `https://sander${STAGING_NUM}.imlostincode.nl`
 
 ## Management Commands
 

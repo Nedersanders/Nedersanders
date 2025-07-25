@@ -82,11 +82,13 @@ jobs:
     - name: Deploy to staging server
       run: |
         # Copy files to staging server
-        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no docker-compose.staging-${{ github.event.inputs.staging_number }}.yml ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:~/
-        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no init-staging-dbs-${{ github.event.inputs.staging_number }}.sql ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:~/init-staging-dbs.sql
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no docker-compose.staging-${{ github.event.inputs.staging_number }}.yml ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:${{ secrets.STAG_DEPLOY_PATH }}/
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no init-staging-dbs-${{ github.event.inputs.staging_number }}.sql ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:${{ secrets.STAG_DEPLOY_PATH }}/init-staging-dbs.sql
         
         # Deploy on staging server
         ssh -p ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }} << 'EOF'
+          cd ${{ secrets.STAG_DEPLOY_PATH }}
+          
           # Stop existing staging environment
           docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
           
@@ -104,4 +106,4 @@ jobs:
         EOF
         
         echo "✅ Deployment complete!"
-        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: http://sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
+        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
