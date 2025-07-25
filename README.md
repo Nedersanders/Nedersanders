@@ -4,7 +4,7 @@
 As we do not have a Team or Org account, we can not enfore pull request. Please use common sense and follow the standard procedure.
 Create a new branch based of master, develop on it, push it, and create a PR for review.
 
-This project is a Node.js Express web application. Below is an overview of the main file and folder structure as found in this repository:
+Use the following naming structure: ```dev-<yournname/GH_handle>-<whatyouareworkingon>``` so we can keep track of the branches a bit better
 
 ## Main Files and Folders
 
@@ -24,10 +24,16 @@ This project is a Node.js Express web application. Below is an overview of the m
 - **.gitignore**: Files and folders to ignore in git.
 - **.dockerignore**: Files and folders to ignore in Docker builds.
 
-## How It Works
-- The app starts from `bin/www` (which loads `app.js`).
-- Routes are defined in the `routes/` folder.
-- Static files are served from `public/`.
-- Views are rendered using EJS templates in `views/`.
+# Documentation
+[NodeJS](https://nodejs.org/docs/latest/api/) General NodeJS doc, bit less usefull.
 
-For more details, see the code in each folder.
+[Express 4.X](https://expressjs.com/en/4x/api.html) Framework documentation, routing, requests, etc
+
+# Further remarks
+
+##Admins
+@sanderslagman Sander (server/repo owner: +31618617731)
+@(sander verschoor) (server/repo admin: +31683238115)
+
+## I need shell access
+Do you now? That can be arranged, but please provide a very solid reason to one of the admins.
