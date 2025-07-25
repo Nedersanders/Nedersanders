@@ -55,21 +55,26 @@ jobs:
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.STAG_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H -p 1124 potatoweb.nickmous.com >> ~/.ssh/known_hosts
+        ssh-keyscan -H -p ${{ secrets.STAG_SSH_PORT }} ${{ secrets.STAG_SSH_HOST }} >> ~/.ssh/known_hosts
 
     - name: Generate docker-compose file
       run: |
         export STAGING_NUM=${{ github.event.inputs.staging_number }}
         export STAGING_PORT=$((3000 + ${{ github.event.inputs.staging_number }}))
         export IMAGE_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}"
+        export STAG_DB_USER="${{ secrets.STAG_DB_USER }}"
+        export STAG_DB_PASSWORD="${{ secrets.STAG_DB_PASSWORD }}"
+        export STAG_DB_NAME="${{ secrets.STAG_DB_NAME }}"
         
         # Replace build context with image in template
         sed "s|build: \.|image: ${IMAGE_TAG}|g" docker-compose.staging.template.yml > temp-compose.yml
         
         # Substitute environment variables
         envsubst < temp-compose.yml > docker-compose.staging-${{ github.event.inputs.staging_number }}.yml
+        envsubst < init-staging-dbs.sql > init-staging-dbs-${{ github.event.inputs.staging_number }}.sql
+        rm temp-compose.yml
         
         echo "Generated docker-compose file:"
         cat docker-compose.staging-${{ github.event.inputs.staging_number }}.yml
@@ -77,11 +82,11 @@ jobs:
     - name: Deploy to staging server
       run: |
         # Copy files to staging server
-        scp -P 1124 -o StrictHostKeyChecking=no docker-compose.staging-${{ github.event.inputs.staging_number }}.yml root@potatoweb.nickmous.com:~/
-        scp -P 1124 -o StrictHostKeyChecking=no init-staging-dbs.sql root@potatoweb.nickmous.com:~/
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no docker-compose.staging-${{ github.event.inputs.staging_number }}.yml ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:~/
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no init-staging-dbs-${{ github.event.inputs.staging_number }}.sql ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:~/init-staging-dbs.sql
         
         # Deploy on staging server
-        ssh -p 1124 -o StrictHostKeyChecking=no root@potatoweb.nickmous.com << 'EOF'
+        ssh -p ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }} << 'EOF'
           # Stop existing staging environment
           docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
           

@@ -5,16 +5,16 @@ services:
     image: postgres:15
     container_name: postgres-staging
     environment:
-      POSTGRES_USER: staging_user
-      POSTGRES_PASSWORD: staging_pass
-      POSTGRES_DB: staging_main
+      POSTGRES_USER: ${STAG_DB_USER}
+      POSTGRES_PASSWORD: ${STAG_DB_PASSWORD}
+      POSTGRES_DB: ${STAG_DB_NAME}
     volumes:
       - postgres_staging_data:/var/lib/postgresql/data
       - ./init-staging-dbs.sql:/docker-entrypoint-initdb.d/init-staging-dbs.sql
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U staging_user -d staging_main"]
+      test: ["CMD-SHELL", "pg_isready -U ${STAG_DB_USER} -d ${STAG_DB_NAME}"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -29,8 +29,8 @@ services:
     environment:
       - NODE_ENV=staging
       - DB_HOST=postgres-staging
-      - DB_USER=staging_user
-      - DB_PASSWORD=staging_pass
+      - DB_USER=${STAG_DB_USER}
+      - DB_PASSWORD=${STAG_DB_PASSWORD}
       - DB_NAME=staging_db_${STAGING_NUM}
       - DB_PORT=5432
       - STAGING_ENV=${STAGING_NUM}
