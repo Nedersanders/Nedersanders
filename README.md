@@ -25,15 +25,22 @@ Use the following naming structure: ```dev-<yournname/GH_handle>-<whatyouarework
 - **.dockerignore**: Files and folders to ignore in Docker builds.
 
 # Documentation
+## References
 [NodeJS](https://nodejs.org/docs/latest/api/) General NodeJS doc, bit less usefull.
 
 [Express 4.X](https://expressjs.com/en/4x/api.html) Framework documentation, routing, requests, etc
 
+## Build
+You should be able to run the app locally without using docker. Make sure you have NodeJS installed and just run ```npm start``` in the root project directory. This will spin up a server at localhost:3000
+
+## Pushing to dev
+Create a pull request from your branch. Once it is approved, we will merge it to the live dev server.
+
 # Further remarks
 
-##Admins
-@sanderslagman Sander (server/repo owner: +31618617731)
-@(sander verschoor) (server/repo admin: +31683238115)
+## Admins
+- @sanderslagman Sander (server/repo owner: +31618617731)
+- @sanderverschoor (server/repo admin: +31683238115)
 
 ## I need shell access
 Do you now? That can be arranged, but please provide a very solid reason to one of the admins.
