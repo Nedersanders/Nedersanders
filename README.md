@@ -1,5 +1,9 @@
 # Sanderfest Node.js Express App Structure
 
+## Please read.
+As we do not have a Team or Org account, we can not enfore pull request. Please use common sense and follow the standard procedure.
+Create a new branch based of master, develop on it, push it, and create a PR for review.
+
 This project is a Node.js Express web application. Below is an overview of the main file and folder structure as found in this repository:
 
 ## Main Files and Folders
@@ -15,7 +19,6 @@ This project is a Node.js Express web application. Below is an overview of the m
 - **views/**: EJS templates for server-side rendering.
   - **index.ejs**: Main page template.
   - **error.ejs**: Error page template.
-- **lib/** and **lib64/**: Contain shared libraries (not used by the Node.js app directly, but present in the folder).
 - **Dockerfile**: Instructions to build a Docker image for this app. Do not edit without contacting Sander (server owner: +31618617731) or Sander (server admin: +31683238115)
 - **package.json**: Project metadata and dependencies.
 - **.gitignore**: Files and folders to ignore in git.
