@@ -89,6 +89,9 @@ jobs:
         ssh -p ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }} << 'EOF'
           cd ${{ secrets.STAG_DEPLOY_PATH }}
           
+          # Login to GitHub Container Registry
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          
           # Stop existing staging environment
           docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
           
