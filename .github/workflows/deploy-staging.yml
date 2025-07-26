@@ -90,19 +90,16 @@ jobs:
           cd ${{ secrets.STAG_DEPLOY_PATH }}
           
           # Stop existing staging environment
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
           
           # Start postgres if not running
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d postgres
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d postgres
           
           # Wait for postgres to be ready
           sleep 10
           
           # Start the application
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d app-staging-${{ github.event.inputs.staging_number }}
-          
-          # Show running containers
-          docker ps
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d app-staging-${{ github.event.inputs.staging_number }}
         EOF
         
         echo "✅ Deployment complete!"
