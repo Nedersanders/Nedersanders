@@ -136,3 +136,6 @@ lib64/
 .bash_profile
 .profile
 .bash_history
+
+# jetbrains IDEs
+.idea/laravel-idea.xml

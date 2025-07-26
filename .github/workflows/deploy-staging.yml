@@ -47,8 +47,8 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-latest
+          nedersanders/nedersanders:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
+          nedersanders/nedersanders:staging-${{ github.event.inputs.staging_number }}-latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -63,7 +63,7 @@ jobs:
       run: |
         export STAGING_NUM=${{ github.event.inputs.staging_number }}
         export STAGING_PORT=$((3000 + ${{ github.event.inputs.staging_number }}))
-        export IMAGE_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}"
+        export IMAGE_TAG="nedersanders/nedersanders:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}"
         export STAG_DB_USER="${{ secrets.STAG_DB_USER }}"
         export STAG_DB_PASSWORD="${{ secrets.STAG_DB_PASSWORD }}"
         export STAG_DB_NAME="${{ secrets.STAG_DB_NAME }}"
