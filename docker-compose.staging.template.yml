@@ -26,11 +26,11 @@ services:
       - "${STAGING_PORT}:3000"
     environment:
       - NODE_ENV=staging
-      - DB_HOST=postgres-staging
-      - DB_USER=${STAG_DB_USER}
-      - DB_PASSWORD=${STAG_DB_PASSWORD}
-      - DB_NAME=staging_db_${STAGING_NUM}
-      - DB_PORT=5432
+      - POSTGRES_HOST=postgres-staging
+      - POSTGRES_USER=${STAG_DB_USER}
+      - POSTGRES_PASSWORD=${STAG_DB_PASSWORD}
+      - POSTGRES_DB=staging_db_${STAGING_NUM}
+      - POSTGRES_PORT=5432
       - STAGING_ENV=${STAGING_NUM}
     depends_on:
       postgres:
