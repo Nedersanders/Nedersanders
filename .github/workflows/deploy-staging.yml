@@ -1,0 +1,109 @@
+name: Deploy to Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      staging_number:
+        description: 'Staging environment number (1-10)'
+        required: true
+        type: number
+        default: 1
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate staging number
+      run: |
+        if [ ${{ github.event.inputs.staging_number }} -lt 1 ] || [ ${{ github.event.inputs.staging_number }} -gt 10 ]; then
+          echo "Error: Staging number must be between 1 and 10"
+          exit 1
+        fi
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.STAG_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H -p ${{ secrets.STAG_SSH_PORT }} ${{ secrets.STAG_SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Generate docker-compose file
+      run: |
+        export STAGING_NUM=${{ github.event.inputs.staging_number }}
+        export STAGING_PORT=$((3000 + ${{ github.event.inputs.staging_number }}))
+        export IMAGE_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}"
+        export STAG_DB_USER="${{ secrets.STAG_DB_USER }}"
+        export STAG_DB_PASSWORD="${{ secrets.STAG_DB_PASSWORD }}"
+        export STAG_DB_NAME="${{ secrets.STAG_DB_NAME }}"
+        
+        # Replace build context with image in template
+        sed "s|build: \.|image: ${IMAGE_TAG}|g" docker-compose.staging.template.yml > temp-compose.yml
+        
+        # Substitute environment variables
+        envsubst < temp-compose.yml > docker-compose.staging-${{ github.event.inputs.staging_number }}.yml
+        envsubst < init-staging-dbs.sql > init-staging-dbs-${{ github.event.inputs.staging_number }}.sql
+        rm temp-compose.yml
+        
+        echo "Generated docker-compose file:"
+        cat docker-compose.staging-${{ github.event.inputs.staging_number }}.yml
+
+    - name: Deploy to staging server
+      run: |
+        # Copy files to staging server
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no docker-compose.staging-${{ github.event.inputs.staging_number }}.yml ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:${{ secrets.STAG_DEPLOY_PATH }}/
+        scp -P ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no init-staging-dbs-${{ github.event.inputs.staging_number }}.sql ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }}:${{ secrets.STAG_DEPLOY_PATH }}/init-staging-dbs.sql
+        
+        # Deploy on staging server
+        ssh -p ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }} << 'EOF'
+          cd ${{ secrets.STAG_DEPLOY_PATH }}
+          
+          # Stop existing staging environment
+          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
+          
+          # Start postgres if not running
+          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d postgres
+          
+          # Wait for postgres to be ready
+          sleep 10
+          
+          # Start the application
+          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d app-staging-${{ github.event.inputs.staging_number }}
+          
+          # Show running containers
+          docker ps
+        EOF
+        
+        echo "✅ Deployment complete!"
+        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
