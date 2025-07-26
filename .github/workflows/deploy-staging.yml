@@ -97,4 +97,4 @@ jobs:
         EOF
         
         echo "✅ Deployment complete!"
-        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
+        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: https://sander:sesamopenu@sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
