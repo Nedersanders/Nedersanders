@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/nedersanders
+  IMAGE_NAME: nedersanders/nedersanders
 
 jobs:
   deploy-staging:
@@ -89,21 +89,12 @@ jobs:
         ssh -p ${{ secrets.STAG_SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.STAG_SSH_USER }}@${{ secrets.STAG_SSH_HOST }} << 'EOF'
           cd ${{ secrets.STAG_DEPLOY_PATH }}
           
-          # Stop existing staging environment
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml down || true
+          # Login to GitHub Container Registry
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           
-          # Start postgres if not running
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d postgres
-          
-          # Wait for postgres to be ready
-          sleep 10
-          
-          # Start the application
-          docker-compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d app-staging-${{ github.event.inputs.staging_number }}
-          
-          # Show running containers
-          docker ps
+          # Deploy staging environment (pulls new images and starts/restarts as needed)
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d
         EOF
         
         echo "✅ Deployment complete!"
-        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at: https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl"
+        echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl with username 'sander' and password 'sesamopenu'"
