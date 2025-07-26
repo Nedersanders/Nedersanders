@@ -6,13 +6,14 @@
 FROM node:alpine
 LABEL maintainer="Sander, Sander, and Sander"
 
-# Install system monitoring tools
+# Install system monitoring tools and curl for health checks
 RUN apk add --no-cache \
     btop \
     htop \
     procps \
     coreutils \
-    util-linux
+    util-linux \
+    curl
 
 # Try to install btop if available, fallback to htop
 RUN apk add --no-cache btop || echo "btop not available, using htop as fallback"
@@ -25,5 +26,6 @@ EXPOSE 3000
 ADD --chown=sanderdev:sanderdev . /app
 VOLUME ["/app"]
 CMD ["npm", "start"]
+
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD top -n 1 | grep "node ./bin/www" || exit
+  CMD (top -n 1 | grep "node ./bin/www" && curl -f http://localhost:3000/health) || exit 1
