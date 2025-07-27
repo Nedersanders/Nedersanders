@@ -92,7 +92,10 @@ jobs:
           # Login to GitHub Container Registry
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           
-          # Deploy staging environment (pulls new images and starts/restarts as needed)
+          # Deploy staging environment (restart only app, keep postgres running)
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml pull app-staging-${{ github.event.inputs.staging_number }}
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml stop app-staging-${{ github.event.inputs.staging_number }}
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml rm -f app-staging-${{ github.event.inputs.staging_number }}
           docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d
         EOF
         
