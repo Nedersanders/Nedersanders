@@ -1,8 +1,6 @@
 # Sanderfest Node.js Express App Structure
 
 ## Please read.
-As we do not have a Team or Org account, we can not enfore pull request. Please use common sense and follow the standard procedure.
-Create a new branch based of master, develop on it, push it, and create a PR for review.
 
 Use the following naming structure: ```dev-<yournname/GH_handle>-<whatyouareworkingon>``` so we can keep track of the branches a bit better
 
