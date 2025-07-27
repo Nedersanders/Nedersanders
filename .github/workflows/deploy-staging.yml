@@ -110,7 +110,7 @@ jobs:
         SENTRY_PROJECT: nedersanders
       with:
         environment: staging-${{ github.event.inputs.staging_number }}
-        version: staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
+        release: staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
         
     - name: Deployment complete
       run: |
