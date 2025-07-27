@@ -19,7 +19,7 @@ RUN apk add --no-cache \
 RUN apk add --no-cache btop || echo "btop not available, using htop as fallback"
 
 WORKDIR /app
-COPY package.json .
+COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 EXPOSE 3000
