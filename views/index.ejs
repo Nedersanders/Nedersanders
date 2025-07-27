@@ -2,11 +2,19 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/output.css' />
+    <link rel='stylesheet' href='/dist/css/style.css' />
   </head>
   <body>
-    <h1 class="text-3xl font-bold text-blue-600"><%= title %></h1>
+    <h1 class="text-3xl font-bold text-blue-600" data-track="title-click"><%= title %></h1>
     <p class="text-lg text-gray-700 mt-4">Welcome to <%= title %></p>
-    <p class="text-sm text-gray-500 mt-2">This is a staging server test</p>
+    <p class="text-sm text-gray-500 mt-2">This is a development server with Rollup build system</p>
+    
+    <div class="mt-8">
+      <button class="phone bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-track="test-button">
+        Test Button
+      </button>
+    </div>
+    
+    <script src="/dist/js/main.min.js"></script>
   </body>
 </html>
