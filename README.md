@@ -1,8 +1,6 @@
 # Sanderfest Node.js Express App Structure
 
 ## Please read.
-As we do not have a Team or Org account, we can not enfore pull request. Please use common sense and follow the standard procedure.
-Create a new branch based of master, develop on it, push it, and create a PR for review.
 
 Use the following naming structure: ```dev-<yournname/GH_handle>-<whatyouareworkingon>``` so we can keep track of the branches a bit better
 
@@ -29,6 +27,8 @@ Use the following naming structure: ```dev-<yournname/GH_handle>-<whatyouarework
 [NodeJS](https://nodejs.org/docs/latest/api/) General NodeJS doc, bit less usefull.
 
 [Express 4.X](https://expressjs.com/en/4x/api.html) Framework documentation, routing, requests, etc
+
+See the docs folder for more specific documentation
 
 ## Build
 You should be able to run the app locally without using docker. Make sure you have NodeJS installed and just run ```npm start``` in the root project directory. This will spin up a server at localhost:3000
