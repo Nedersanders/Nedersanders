@@ -101,23 +101,17 @@ jobs:
           docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d
         EOF
         
-        # Notify Sentry of new release
-        curl -X POST \
-          https://sentry.nickmous.com/api/0/organizations/sentry/releases/ \
-          -H "Authorization: Bearer ${{ secrets.SENTRY_AUTH_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "version": "staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}",
-            "projects": ["nedersanders"]
-          }'
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: sentry
+        SENTRY_PROJECT: nedersanders
+      with:
+        environment: staging-${{ github.event.inputs.staging_number }}
+        version: staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
         
-        curl -X POST \
-          https://sentry.nickmous.com/api/0/organizations/sentry/releases/staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}/deploys/ \
-          -H "Authorization: Bearer ${{ secrets.SENTRY_AUTH_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "environment": "staging-${{ github.event.inputs.staging_number }}"
-          }'
-        
+    - name: Deployment complete
+      run: |
         echo "✅ Deployment complete!"
         echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl with username 'sander' and password 'sesamopenu'"
