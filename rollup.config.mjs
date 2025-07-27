@@ -7,9 +7,12 @@ import cssnano from 'cssnano';
 import fs from 'fs';
 import path from 'path';
 
-//Set to true for now
+const isProduction = process.env.NODE_ENV === 'production';
 
-const isProduction = true // process.env.NODE_ENV === 'production';
+// Debug logging
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('isProduction:', isProduction);
+console.log('Terser will be applied:', isProduction);
 
 // Function to get all JS files in public/javascripts
 function getJSEntries() {
@@ -29,19 +32,17 @@ function getJSEntries() {
   return entries;
 }
 
-// Function to get all CSS files in public/stylesheets (including Tailwind CSS)
+// Function to get all CSS files in public/stylesheets (skip style.css, use output.css instead)
 function getCSSEntries() {
   const cssDir = 'public/stylesheets';
   const entries = {};
   
   if (fs.existsSync(cssDir)) {
-    const files = fs.readdirSync(cssDir);
-    files.forEach(file => {
-      if (file.endsWith('.css') && !file.includes('output') && !file.includes('dist')) {
-        const name = path.basename(file, '.css');
-        entries[name] = path.join(cssDir, file);
-      }
-    });
+    // Look for output.css (the compiled Tailwind CSS) instead of the source files
+    const outputFile = path.join(cssDir, 'output.css');
+    if (fs.existsSync(outputFile)) {
+      entries['style'] = outputFile; // Name it style so it becomes style.css in dist
+    }
   }
   
   return entries;
@@ -65,28 +66,32 @@ const jsConfig = Object.keys(jsEntries).length > 0 ? {
       preferBuiltins: false
     }),
     commonjs(),
-    ...(isProduction ? [terser()] : [])
+    ...(isProduction ? [terser({
+      compress: {
+        drop_console: false, // Keep console.log for debugging
+        drop_debugger: true
+      },
+      mangle: true,
+      format: {
+        comments: false
+      }
+    })] : [])
   ]
 } : null;
 
-// CSS configuration (with Tailwind CSS support)
+// CSS configuration (copy the compiled Tailwind CSS)
 const cssConfig = Object.keys(cssEntries).length > 0 ? {
   input: cssEntries,
   output: {
-    dir: 'public/dist/css'
+    dir: 'public/dist/css',
+    assetFileNames: '[name][extname]'
   },
   plugins: [
     postcss({
       extract: true,
       minimize: isProduction,
-      sourceMap: !isProduction,
-      config: {
-        path: './postcss.config.mjs'
-      },
-      plugins: [
-        autoprefixer(),
-        ...(isProduction ? [cssnano()] : [])
-      ]
+      sourceMap: !isProduction
+      // No need for config since we're processing the already-compiled CSS
     })
   ]
 } : null;

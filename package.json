@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run build && node ./bin/www",
-    "dev": "npm run build:css && npm run build && nodemon ./bin/www",
-    "build": "rollup -c",
-    "build:watch": "rollup -c --watch",
-    "build:prod": "NODE_ENV=production rollup -c",
+    "start": "npm run build:prod && node ./bin/www",
+    "dev": "npm run build && nodemon ./bin/www",
+    "build": "npm run build:css && rollup -c",
+    "build:watch": "npm run build:css && rollup -c --watch",
+    "build:prod": "npm run build:css && NODE_ENV=production rollup -c",
     "build:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css",
     "watch:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css --watch"
   },
@@ -32,6 +32,7 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup-plugin-postcss": "^4.0.2",
+    "postcss-import": "^16.0.0",
     "cssnano": "^6.0.1"
   }
 }
