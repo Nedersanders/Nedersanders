@@ -20,7 +20,7 @@ In the repository, go to actions. On the left you see a menu with Actions, and s
 
 Run the workflow, and wait about a minute or so. (Untill the circle turns green).
 
-![GitHub Actions Deployment Status](../assets/images/staging-deployment.png)
+![Github Workflows](hhttps://github.com/Nedersanders/Nedersanders/blob/master/docs/staging.png)
 
 ## Visit your staging server
 
