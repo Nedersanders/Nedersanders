@@ -1,13 +1,15 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import { terser } from '@rollup/plugin-terser';
+import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import fs from 'fs';
 import path from 'path';
 
-const isProduction = process.env.NODE_ENV === 'production';
+//Set to true for now
+
+const isProduction = true // process.env.NODE_ENV === 'production';
 
 // Function to get all JS files in public/javascripts
 function getJSEntries() {

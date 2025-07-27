@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run build && node ./bin/www",
-    "dev": "npm run build && nodemon ./bin/www",
+    "dev": "npm run build:css && npm run build && nodemon ./bin/www",
     "build": "rollup -c",
     "build:watch": "rollup -c --watch",
     "build:prod": "NODE_ENV=production rollup -c",
