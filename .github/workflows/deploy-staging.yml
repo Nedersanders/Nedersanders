@@ -104,6 +104,7 @@ jobs:
     - name: Create Sentry release
       uses: getsentry/action-release@v3
       env:
+        SENTRY_URL: "https://sentry.nickmous.com/"
         SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
         SENTRY_ORG: nedersanders
         SENTRY_PROJECT: nedersanders
