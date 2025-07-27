@@ -8,6 +8,8 @@ console.log('SENTRY_DSN:', process.env.SENTRY_DSN ? 'Loaded' : 'Missing');
 
 Sentry.init({
     dsn: process.env.SENTRY_DSN,
+    environment: process.env.SENTRY_ENVIRONMENT || 'development',
+    release: process.env.SENTRY_RELEASE,
     integrations: [
         nodeProfilingIntegration(),
     ],

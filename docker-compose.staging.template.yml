@@ -34,6 +34,7 @@ services:
       - STAGING_ENV=${STAGING_NUM}
       - SENTRY_DSN=${SENTRY_DSN}
       - SENTRY_ENVIRONMENT=staging-${STAGING_NUM}
+      - SENTRY_RELEASE=${SENTRY_RELEASE}
     depends_on:
       postgres:
         condition: service_healthy
