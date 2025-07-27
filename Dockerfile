@@ -22,11 +22,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-EXPOSE "3000"
+EXPOSE 3000
 ADD --chown=sanderdev:sanderdev . /app
 VOLUME ["/app"]
 #Compile tailwindcss and use nodemon to run the server
-CMD ["npm", "run", "dev"] 
+CMD ["npm", "start"] 
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD (top -n 1 | grep "node ./bin/www" && curl -f http://localhost:3000/health) || exit 1
