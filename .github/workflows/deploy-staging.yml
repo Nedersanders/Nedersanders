@@ -67,6 +67,8 @@ jobs:
         export STAG_DB_USER="${{ secrets.STAG_DB_USER }}"
         export STAG_DB_PASSWORD="${{ secrets.STAG_DB_PASSWORD }}"
         export STAG_DB_NAME="${{ secrets.STAG_DB_NAME }}"
+        export SENTRY_DSN="${{ secrets.SENTRY_DSN }}"
+        export SENTRY_RELEASE="staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}"
         
         # Replace build context with image in template
         sed "s|build: \.|image: ${IMAGE_TAG}|g" docker-compose.staging.template.yml > temp-compose.yml
@@ -99,5 +101,19 @@ jobs:
           docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d
         EOF
         
+    - name: Create Sentry release
+      uses: getsentry/action-release@v3
+      env:
+        SENTRY_URL: "https://sentry.nickmous.com/"
+        SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+        SENTRY_ORG: nedersanders
+        SENTRY_PROJECT: nedersanders
+      with:
+        environment: staging-${{ github.event.inputs.staging_number }}
+        release: staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
+        ignore_missing: true
+        
+    - name: Deployment complete
+      run: |
         echo "✅ Deployment complete!"
         echo "🌐 Staging environment ${{ github.event.inputs.staging_number }} is available at https://sander${{ github.event.inputs.staging_number }}.imlostincode.nl with username 'sander' and password 'sesamopenu'"
