@@ -9,11 +9,6 @@ import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Debug logging
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('isProduction:', isProduction);
-console.log('Terser will be applied:', isProduction);
-
 // Function to get all JS files in public/javascripts
 function getJSEntries() {
   const jsDir = 'public/javascripts';
