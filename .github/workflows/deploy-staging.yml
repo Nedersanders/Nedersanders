@@ -67,6 +67,7 @@ jobs:
         export STAG_DB_USER="${{ secrets.STAG_DB_USER }}"
         export STAG_DB_PASSWORD="${{ secrets.STAG_DB_PASSWORD }}"
         export STAG_DB_NAME="${{ secrets.STAG_DB_NAME }}"
+        export SENTRY_DSN="${{ secrets.SENTRY_DSN }}"
         
         # Replace build context with image in template
         sed "s|build: \.|image: ${IMAGE_TAG}|g" docker-compose.staging.template.yml > temp-compose.yml
