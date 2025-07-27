@@ -93,7 +93,7 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           
           # Deploy staging environment (pulls new images and starts/restarts as needed)
-          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d --force-recreate
+          docker compose -f docker-compose.staging-${{ github.event.inputs.staging_number }}.yml up -d
         EOF
         
         echo "✅ Deployment complete!"
