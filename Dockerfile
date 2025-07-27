@@ -20,7 +20,7 @@ RUN apk add --no-cache btop || echo "btop not available, using htop as fallback"
 
 WORKDIR /app
 COPY package.json .
-RUN npm install --development
+RUN npm ci
 COPY . .
 EXPOSE 3000
 ADD --chown=sanderdev:sanderdev . /app
