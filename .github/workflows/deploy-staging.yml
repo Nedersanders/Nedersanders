@@ -111,6 +111,7 @@ jobs:
       with:
         environment: staging-${{ github.event.inputs.staging_number }}
         release: staging-${{ github.event.inputs.staging_number }}-${{ github.sha }}
+        ignore_missing: true
         
     - name: Deployment complete
       run: |
