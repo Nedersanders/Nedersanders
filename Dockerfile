@@ -22,7 +22,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-EXPOSE 3000
+EXPOSE "3000"
 ADD --chown=sanderdev:sanderdev . /app
 VOLUME ["/app"]
 #Compile tailwindcss and use nodemon to run the server
