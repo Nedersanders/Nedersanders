@@ -1,5 +1,4 @@
 require('./scripts/instrument.js');
-require('dotenv').config();
 
 const Sentry = require('@sentry/node');
 var createError = require('http-errors');
@@ -7,18 +6,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session');
-
-// Import configurations
-const sessionConfig = require('./config/session');
-const { helmetConfig, corsConfig, limiter } = require('./config/security');
-const { testConnection } = require('./config/database');
 
 var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
 
 var app = express();
 
+<<<<<<< HEAD
 // Configure Express to trust proxy for X-Forwarded-For headers
 app.set('trust proxy', true);
 
@@ -30,22 +23,19 @@ app.use(helmetConfig);
 // app.use(corsConfig); // Cors Config is iffy with the proxy setup, so it's disabled for now
 app.use(limiter);
 
+=======
+>>>>>>> parent of 8b62037 (Added auth router and nessecary packages)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// Session middleware
-app.use(session(sessionConfig));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
 
 // Initialize Sentry after the routes are set up
 Sentry.setupExpressErrorHandler(app);
