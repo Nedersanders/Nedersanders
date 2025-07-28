@@ -20,7 +20,7 @@ In the repository, go to actions. On the left you see a menu with Actions, and s
 
 Run the workflow, and wait about a minute or so. (Untill the circle turns green).
 
-![Github Workflows](https://github.com/Nedersanders/Nedersanders/blob/master/docs/staging.png "Deploy to staging")
+![Github Workflows](https://github.com/Nedersanders/Nedersanders/blob/master/docs/images/staging.png "Deploy to staging")
 
 ## Visit your staging server
 

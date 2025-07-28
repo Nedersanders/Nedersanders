@@ -19,12 +19,15 @@ var authRouter = require('./routes/auth');
 
 var app = express();
 
+// Configure Express to trust proxy for X-Forwarded-For headers
+app.set('trust proxy', true);
+
 // Test database connection on startup
 testConnection();
 
 // Security middleware
 app.use(helmetConfig);
-app.use(corsConfig);
+// app.use(corsConfig); // Cors Config is iffy with the proxy setup, so it's disabled for now
 app.use(limiter);
 
 // view engine setup

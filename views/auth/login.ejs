@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/dist/css/style.css' />
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-input:invalid {
+            border-color: #e74c3c;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            background: #ffe6e6;
+            color: #c0392b;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .demo-info {
+            background: #e8f4fd;
+            color: #2980b9;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            text-align: center;
+            border-left: 4px solid #3498db;
+        }
+        
+        .demo-credentials {
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Inloggen</h1>
+                <p>Welkom terug bij Nedersanders.nl</p>
+            </div>
+            
+            <% if (process.env.NODE_ENV === 'development') { %>
+            <div class="demo-info">
+                <strong>🔧 Development Mode</strong><br>
+                Demo admin account:<br>
+                <div class="demo-credentials">
+                    Email: admin@nedersanders.nl<br>
+                    Password: AdminSander2025!
+                </div>
+            </div>
+            <% } %>
+            
+            <% if (error) { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+            <% } %>
+            
+            <form method="POST" action="/auth/login">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email adres</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        required 
+                        placeholder="je@nedersanders.nl"
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Wachtwoord</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        required 
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="btn">
+                    Inloggen
+                </button>
+            </form>
+            
+            <div class="back-link">
+                <a href="/">← Terug naar homepagina</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/dist/js/main.min.js"></script>
+    <script>
+        // Add some interactive feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const inputs = document.querySelectorAll('.form-input');
+            
+            // Add focus/blur effects
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Add loading state to submit button
+            form.addEventListener('submit', function() {
+                const btn = this.querySelector('.btn');
+                btn.innerHTML = 'Inloggen...';
+                btn.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
