@@ -3,6 +3,15 @@
 ## Overview
 This document outlines our development workflow for the Nedersanders.nl project, covering everything from initial planning to deployment.
 
+## 📂 Google Drive Documentation
+[Invite link](https://drive.google.com/drive/folders/1wtmBt_SW1IMzZn7r9VDogtujFWRitT4Y?usp=sharing)
+
+### Organization Structure
+- **Project Folders (Design and Dev)**: All project assets, documents, and resources
+- **Shared Resources**: Templates, brand guidelines, and reusable assets
+- **Archives**: Previous versions and completed project materials
+- **Infra / Architecture**: Files related to project design
+
 ## 📋 Project Management
 
 ### Trello Integration
