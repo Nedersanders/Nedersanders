@@ -6,6 +6,8 @@ This document outlines our development workflow for the Nedersanders.nl project,
 ## 📋 Project Management
 
 ### Trello Integration
+[Trello Board](https://trello.com/invite/68865fecc1f9daeb3ba66922/ATTI1ab34ffc0cff4b6b747dff9d00e05327C685CD46)
+
 - **Main Board**: All project tasks are managed through our Trello board. We have 2 boards, one for development, and one for design.
 - **Special tickets**: Some tickets are not for issues / features, but for resource allocation, ideas, suggestions, etc. This will make sense by reading the column name.
 
