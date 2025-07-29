@@ -11,6 +11,23 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+// Configure Express to trust proxy for X-Forwarded-For headers
+app.set('trust proxy', true);
+
+// Test database connection on startup
+testConnection();
+
+// Security middleware
+app.use(helmetConfig);
+// app.use(corsConfig); // Cors Config is iffy with the proxy setup, so it's disabled for now
+app.use(limiter);
+
+=======
+>>>>>>> parent of 8b62037 (Added auth router and nessecary packages)
+=======
+>>>>>>> parent of 8b62037 (Added auth router and nessecary packages)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
