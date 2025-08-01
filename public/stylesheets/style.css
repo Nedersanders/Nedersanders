@@ -16,7 +16,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-100 min-h-screen font-sans text-gray-900 overflow-x-hidden;
+    @apply bg-white min-h-screen font-sans text-gray-900 overflow-x-hidden;
     font-family: "Inter", sans-serif;
   }
 
