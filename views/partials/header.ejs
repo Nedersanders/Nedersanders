@@ -1,84 +1,71 @@
 <!DOCTYPE html>
 <html lang="nl" class="h-full">
-  <head>
-    <title><%= title %></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/dist/css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <style></style>
-  </head>
-  <body class="h-full flex flex-col">
-    <!-- Navigation -->
-    <nav class="nav">
-      <div class="nav-container">
-        <div class="nav-content">
-          <div class="flex items-center">
-            <div class="nav-logo">
-              <div class="flex items-center justify-center w-24 h-auto">
-                <a href="/" class="nav-logo-link"> <!-- TODO: Get PNG logo-->
-                  <img
-                    src="/images/logo.jpeg"
-                    alt="Nedersanders Logo"
-                    class="nav-logo-img"
-                  />
-                </a>
-              </div>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/dist/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <style></style>
+</head>
+
+<body class="h-full flex flex-col">
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-content">
+        <div class="flex items-center">
+          <div class="nav-logo">
+            <div class="flex items-center justify-center w-24 h-auto">
+              <a href="/" class="nav-logo-link"> <!-- TODO: Get PNG logo-->
+                <img src="/images/logo.jpeg" alt="Nedersanders Logo" class="nav-logo-img" />
+              </a>
             </div>
           </div>
-          <div class="nav-links">
-            <a href="/" class="nav-link-active">Home</a>
-            <a href="/tickets" class="nav-link">Tickets</a>
-            <a href="#events" class="nav-link">Evenementen</a>
-            <a href="#contact" class="nav-link">Contact</a>
-            <a href="/auth/login" class="nav-link">Inloggen</a>
-          </div>
-          <div class="nav-mobile">
-            <button id="mobile-menu-toggle" class="nav-mobile-btn">
-              <svg
-                class="nav-mobile-icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </button>
-          </div>
         </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu">
-      <div class="p-6">
-        <!-- Mobile menu header -->
-        <div class="mobile-menu-header">
-          <h2 class="mobile-menu-title">Menu</h2>
-          <button id="mobile-menu-close" class="mobile-menu-close">
-            <span class="text-2xl">&times;</span>
+        <div class="nav-links">
+          <a href="/" class="nav-link-active">Home</a>
+          <a href="/tickets" class="nav-link">Tickets</a>
+          <a href="/evenementen" class="nav-link">Evenementen</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <a href="/auth/login" class="nav-link">Inloggen</a>
+        </div>
+        <div class="nav-mobile">
+          <button id="mobile-menu-toggle" class="nav-mobile-btn">
+            <svg class="nav-mobile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
           </button>
-        </div>
-
-        <!-- Mobile menu links -->
-        <div class="mobile-menu-links">
-          <a href="/" class="mobile-menu-link">Home</a>
-          <a href="/tickets" class="mobile-menu-link">Tickets</a>
-          <a href="#features" class="mobile-menu-link">Features</a>
-          <a href="#lineup" class="mobile-menu-link">Line-up</a>
-          <a href="#contact" class="mobile-menu-link">Contact</a>
-          <a href="/auth/login" class="mobile-menu-link">Inloggen</a>
         </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Main Content Area -->
-    <main class="flex-1">
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="p-6">
+      <!-- Mobile menu header -->
+      <div class="mobile-menu-header">
+        <h2 class="mobile-menu-title">Menu</h2>
+        <button id="mobile-menu-close" class="mobile-menu-close">
+          <span class="text-2xl">&times;</span>
+        </button>
+      </div>
+
+      <!-- Mobile menu links -->
+      <div class="mobile-menu-links">
+        <a href="/" class="mobile-menu-link">Home</a>
+        <a href="/tickets" class="mobile-menu-link">Tickets</a>
+        <a href="#features" class="mobile-menu-link">Features</a>
+        <a href="#lineup" class="mobile-menu-link">Line-up</a>
+        <a href="#contact" class="mobile-menu-link">Contact</a>
+        <a href="/auth/login" class="mobile-menu-link">Inloggen</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="flex-1">
