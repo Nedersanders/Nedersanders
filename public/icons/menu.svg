@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 18 16">
+  <g id="Icons">
+    <g id="Interface-Essential_Menu_navigation-menu-1" data-name="Interface-Essential / Menu / navigation-menu-1">
+      <g id="Group_21" data-name="Group 21">
+        <g id="navigation-menu-1">
+          <path id="Shape_78" data-name="Shape 78" d="m17.5,2.5c0,.55-.45,1-1,1H1.5c-.55,0-1-.45-1-1v-1C.5.95.95.5,1.5.5h15c.55,0,1,.45,1,1v1Z" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;"/>
+          <path id="Shape_79" data-name="Shape 79" d="m17.5,8.5c0,.55-.45,1-1,1H1.5c-.55,0-1-.45-1-1v-1c0-.55.45-1,1-1h15c.55,0,1,.45,1,1v1Z" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;"/>
+          <path id="Shape_80" data-name="Shape 80" d="m17.5,14.5c0,.55-.45,1-1,1H1.5c-.55,0-1-.45-1-1v-1c0-.55.45-1,1-1h15c.55,0,1,.45,1,1v1Z" style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
