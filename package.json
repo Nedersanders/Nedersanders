@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "npm run build && PORT=3123 nodemon ./bin/www",
+    "build:start": "npm run build && node ./bin/www",
     "build": "npm run build:css && rollup -c",
     "build:watch": "npm run build:css && rollup -c --watch",
     "build:prod": "npm run build:css && NODE_ENV=production rollup -c",
