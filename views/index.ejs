@@ -1,6 +1,6 @@
 <%- include('./partials/header.ejs') %>
 
-    <section class="w-full h-full p-4 grid grid-rows-2">
+    <section class="w-full h-full p-4 md:grid grid-rows-2 hidden">
         <div class="w-full h-full  grid grid-cols-2">
             <div class="w-full h-full flex items-center justify-center">
                 <h1 class="text-5xl font-semibold">Het Platform voor Sander, <br /> door Sanders</h1>
@@ -8,7 +8,8 @@
             <div class="w-full h-full p-4 relative tiems-center justfy-center">
                 <img src="/images/sanderevent-2025/sanderevent.jpeg" alt="Evenement"
                     class="object-cover rounded-2xl h-64 w-full border shadow" />
-                <div class="absolute top-0 left-0 w-full flex rounded-t-2xl bg-white px-2 justify-between items-center">
+                <div
+                    class="absolute top-0 left-0 w-full flex rounded-t-2xl bg-white px-8 py-2 border border-b-0 justify-between items-center">
                     <h3>Event Title</h3>
                     <div class="flex items-center gap-2">
                         <a class="inline-flex border rounded-3xl">Meer Info</a>
@@ -37,6 +38,12 @@
             <div class="w-full h-auto aspect-square">
                 <img src="https://picsum.photos/200" alt="Random Image" class="w-full h-full object-cover rounded-lg">
             </div>
+        </div>
+    </section>
+    <section class="w-full h-full flex flex-col md:hidden">
+        <div class="w-full h-auto aspect-square bg-green-400 flex items-center justify-center">
+            <h1 class="text-5xl font-semibold">Het Platform voor Sander, <br /> door Sanders</h1>
+
         </div>
     </section>
     </main>
