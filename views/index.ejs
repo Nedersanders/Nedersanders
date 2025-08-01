@@ -1,5 +1,5 @@
 <%- include('./partials/header.ejs') %>
-
+    <!-- Desktop section -->
     <section class="w-full h-full p-4 md:grid grid-rows-2 hidden">
         <div class="w-full h-full  grid grid-cols-2">
             <div class="w-full h-full flex items-center justify-center">
@@ -40,15 +40,15 @@
             </div>
         </div>
     </section>
-    <section class="w-full h-full flex flex-col md:hidden p-4">
+    <!-- Mobile section -->
+    <section class="w-full h-full flex flex-col md:hidden p-4 gap-4">
         <div class="w-full h-auto aspect-video flex items-center justify-center">
             <h1 class="text-4xl font-semibold text-center">Het Platform voor Sander, <br /> door Sanders</h1>
         </div>
         <div class="w-full aspect-video p-4 relative items-center justify-center">
             <img src="/images/sanderevent-2025/sanderevent.jpeg" alt="Evenement"
                 class="object-cover rounded-2xl h-64 w-full border shadow" />
-            <div
-                class="absolute top-0 left-0 w-full flex rounded-t-2xl bg-white  py-2 px-4  justify-between items-center">
+            <div class="absolute top-0 left-0 w-full flex flex-col rounded-t-2xl bg-white  py-2 px-4 ">
                 <h3>Event Title</h3>
                 <div class="flex items-center gap-2">
                     <a class="inline-flex border rounded-3xl py-2 px-4">Meer Info</a>
@@ -56,7 +56,10 @@
                 </div>
             </div>
         </div>
-        <div class="w-full h-auto aspect-video grid grid-cols-3 gap-2">
+        <div class="w-full h-auto aspect-video grid grid-cols-4 gap-2">
+            <div class="w-full h-auto aspect-square">
+                <img src="https://picsum.photos/200" alt="Random Image" class="w-full h-full object-cover rounded-lg">
+            </div>
             <div class="w-full h-auto aspect-square">
                 <img src="https://picsum.photos/200" alt="Random Image" class="w-full h-full object-cover rounded-lg">
             </div>
