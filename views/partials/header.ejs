@@ -14,28 +14,30 @@
 
 <body class="h-full flex flex-col">
   <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <div class="nav-content">
+  <nav class="bg-white/95 backdrop-blur-sm shadow-lg relative w-full top-0 z-50;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
         <div class="flex items-center">
-          <div class="nav-logo">
-            <div class="flex items-center justify-center w-20 h-auto">
-              <a href="/" class="nav-logo-link"> <!-- TODO: Get PNG logo-->
-                <img src="/images/NederSandersLogo.png" alt="Nedersanders Logo" class="nav-logo-img" />
-              </a>
-            </div>
+          <div class="flex items-center justify-center w-20 h-auto">
+            <a href="/" class="nav-logo-link"> <!-- TODO: Get PNG logo-->
+              <img src="/images/NederSandersLogo.png" alt="Nedersanders Logo" class="nav-logo-img" />
+            </a>
           </div>
         </div>
-        <div class="nav-links">
-          <a href="/" class="nav-link-active">Home</a>
-          <a href="/tickets" class="nav-link">Tickets</a>
-          <a href="/evenementen" class="nav-link">Evenementen</a>
-          <a href="#contact" class="nav-link">Contact</a>
-          <a href="/auth/login" class="nav-link">Inloggen</a>
+        <div class="hidden md:flex space-x-8">
+          <a href="/" class="text-blue-600 font-semibold">Home</a>
+          <a href="/tickets"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Tickets</a>
+          <a href="/evenementen"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Evenementen</a>
+          <a href="#contact"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Contact</a>
+          <a href="/auth/login"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Inloggen</a>
         </div>
-        <div class="nav-mobile">
-          <button id="mobile-menu-toggle" class="nav-mobile-btn">
-            <svg class="nav-mobile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="md:hidden">
+          <button id="mobile-menu-toggle" class="text-gray-700 hover:text-blue-600 cursor-pointer">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
