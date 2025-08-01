@@ -117,7 +117,7 @@
 
   /* Layout Sections */
   .section {
-    @apply py-16 px-4 md:px-8 lg:px-16 max-w-none;
+    @apply py-0 px-4 md:px-8 lg:px-16 max-w-none;
   }
 
   .section-safe {
