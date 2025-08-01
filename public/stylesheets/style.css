@@ -211,7 +211,7 @@
 
   /* Footer */
   .footer {
-    @apply bg-gradient-to-r from-blue-800 to-teal-600 text-white py-12 mt-20 rounded-t-3xl shadow-2xl;
+    @apply bg-gradient-to-r bg-white text-white py-4 mt-20 rounded-t-3xl shadow-2xl;
   }
 
   .footer-content {
