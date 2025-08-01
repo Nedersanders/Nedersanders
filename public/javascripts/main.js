@@ -21,6 +21,26 @@
         }
       });
     }
+    const rainbowButton = document.getElementById('ignore-event-button');
+    if (rainbowButton) {
+      rainbowButton.addEventListener('click', function() {
+        toggleRainbowBarf();
+      });
+    }
   });
   
 })();
+
+// Function to enable rainbow barf effect
+function toggleRainbowBarf() {
+  const allElements = document.querySelectorAll('div');
+  allElements.forEach(el => {
+    if(el.classList.contains('rainbow-barf')) {
+      el.classList.remove('rainbow-barf');
+    }
+    else {
+      el.classList.add('rainbow-barf');
+    }
+  });
+  console.log('🌈 Rainbow barf effect toggled!');
+}

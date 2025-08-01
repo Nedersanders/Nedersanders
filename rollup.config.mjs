@@ -1,13 +1,10 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
-import postcss from 'rollup-plugin-postcss';
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
 import fs from 'fs';
 import path from 'path';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = true;
 
 // Function to get all JS files in public/javascripts
 function getJSEntries() {
@@ -44,52 +41,57 @@ function getCSSEntries() {
 }
 
 const jsEntries = getJSEntries();
-const cssEntries = getCSSEntries();
 
 // JavaScript configuration
-const jsConfig = Object.keys(jsEntries).length > 0 ? {
-  input: jsEntries,
-  output: {
-    dir: 'public/dist/js',
-    format: 'iife',
-    sourcemap: !isProduction,
-    entryFileNames: '[name].min.js'
-  },
-  plugins: [
-    nodeResolve({
-      browser: true,
-      preferBuiltins: false
-    }),
-    commonjs(),
-    ...(isProduction ? [terser({
-      compress: {
-        drop_console: false, // Keep console.log for debugging
-        drop_debugger: true
-      },
-      mangle: true,
-      format: {
-        comments: false
-      }
-    })] : [])
-  ]
-} : null;
+const jsConfigs = Object.keys(jsEntries).length > 0 ? 
+  Object.entries(jsEntries).map(([name, input]) => ({
+    input,
+    output: {
+      file: `public/dist/js/${name}.min.js`,
+      format: 'iife',
+      sourcemap: !isProduction
+    },
+    plugins: [
+      nodeResolve({
+        browser: true,
+        preferBuiltins: false
+      }),
+      commonjs(),
+      ...(isProduction ? [terser({
+        compress: {
+          drop_console: false, // Keep console.log for debugging
+          drop_debugger: true
+        },
+        mangle: true,
+        format: {
+          comments: false
+        }
+      })] : [])
+    ]
+  })) : [];
 
-// CSS configuration (copy the compiled Tailwind CSS)
-const cssConfig = Object.keys(cssEntries).length > 0 ? {
-  input: cssEntries,
-  output: {
-    dir: 'public/dist/css',
-    assetFileNames: '[name][extname]'
-  },
-  plugins: [
-    postcss({
-      extract: true,
-      minimize: isProduction,
-      sourceMap: !isProduction
-      // No need for config since we're processing the already-compiled CSS
-    })
-  ]
-} : null;
+// Manual CSS copying (since we just need to copy the compiled CSS)
+function copyCSS() {
+  const sourceCSS = 'public/stylesheets/output.css';
+  const targetDir = 'public/dist/css';
+  const targetCSS = path.join(targetDir, 'style.css');
+  
+  if (fs.existsSync(sourceCSS)) {
+    // Ensure target directory exists
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    
+    // Copy the CSS file
+    fs.copyFileSync(sourceCSS, targetCSS);
+    console.log('✓ CSS copied to dist/css/style.css');
+  } else {
+    console.warn('⚠ No CSS file found at public/stylesheets/output.css');
+  }
+}
 
-// Export configurations (filter out null values)
-export default [jsConfig, cssConfig].filter(Boolean);
+// Run CSS copy immediately
+copyCSS();
+
+// Export configurations
+export default jsConfigs;

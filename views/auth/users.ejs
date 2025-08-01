@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/dist/css/style.css' />
+    <style>
+        .users-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+        }
+
+        .users-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .users-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-info h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .header-info p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .users-table-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .table th {
+            background: rgba(102, 126, 234, 0.05);
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .role-admin {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        .role-user {
+            background: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .status-active {
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        .status-inactive {
+            color: #ef4444;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .users-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table {
+                font-size: 0.9rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="users-container">
+        <div class="users-content">
+            <!-- Header Section -->
+            <div class="users-header">
+                <div class="header-info">
+                    <h1>👥 Gebruikersbeheer</h1>
+                    <p>Beheer en monitor geregistreerde gebruikers</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/auth/register" class="btn btn-primary">➕ Nieuwe Gebruiker</a>
+                    <a href="/auth/dashboard" class="btn btn-outline">← Terug naar Dashboard</a>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <% if (typeof success !== 'undefined' && success) { %>
+            <div class="alert alert-success">
+                ✅ <%= success %>
+            </div>
+            <% } %>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-error">
+                ❌ <%= error %>
+            </div>
+            <% } %>
+
+            <!-- Users Table -->
+            <div class="users-table-container">
+                <div class="table-header">
+                    <h2 class="table-title">📋 Gebruikersoverzicht</h2>
+                </div>
+
+                <% if (users && users.length > 0) { %>
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Naam</th>
+                        <th>Gebruikersnaam</th>
+                        <th>Rol</th>
+                        <th>Laatste Login</th>
+                        <th>Aangemaakt</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.fullName || '-' %></td>
+                        <td><%= user.username || '-' %></td>
+                        <td>
+                            <span class="role-badge role-<%= user.role %>">
+                                <%= user.role %>
+                            </span>
+                        </td>
+                        <td>
+                            <% if (user.lastLogin) { %>
+                                <%= new Date(user.lastLogin).toLocaleDateString('nl-NL') %>
+                            <% } else { %>
+                                Nog nooit
+                            <% } %>
+                        </td>
+                        <td><%= new Date(user.createdAt).toLocaleDateString('nl-NL') %></td>
+                        <td>
+                            <span class="status-<%= user.isActive ? 'active' : 'inactive' %>">
+                                <%= user.isActive ? 'Actief' : 'Inactief' %>
+                            </span>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+                </table>
+                <% } else { %>
+                <div class="empty-state">
+                    <div class="empty-state-icon">👥</div>
+                    <h3>Geen gebruikers gevonden</h3>
+                    <p>Er zijn nog geen gebruikers in het systeem.</p>
+                    <a href="/auth/register" class="btn btn-primary" style="margin-top: 1rem;">
+                        ➕ Eerste gebruiker aanmaken
+                    </a>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

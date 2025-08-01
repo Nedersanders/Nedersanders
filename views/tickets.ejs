@@ -1,0 +1,75 @@
+<%-include('./partials/header.ejs') %>
+
+    <!-- Weeztix Ticket Sales Section -->
+    <section id="tickets" class="section-alt mt-4">
+        <div class="max-width">
+            <div class="text-center mb-8">
+                <h2 class="title-white">🎫 Tickets Bestellen</h2>
+                <p class="subtitle-white">Veilig en betrouwbaar via Weeztix (NOT YET INTEGRATED)</p>
+            </div>
+            
+            <!-- Weeztix Iframe Container -->
+            <div class="card">
+                <div class="text-center mb-4">
+                    <p class="feature-text text-sm">
+                        🔒 Veilige betaling via Weeztix • Directe bevestiging per email
+                    </p>
+                </div>
+                
+                <!-- Replace this src with your actual Weeztix embed URL -->
+                <iframe 
+                    src="https://weeztix.com/embed/your-event-id-here" 
+                    class="weeztix-frame w-full h-[600px] md:h-[700px]"
+                    title="Nedersanders Festival 2025 Tickets"
+                    loading="lazy">
+                    <p>Je browser ondersteunt geen iframes. 
+                       <a href="https://weeztix.com/your-event-id-here" target="_blank" class="text-blue-600 underline">
+                           Klik hier om tickets te kopen
+                       </a>
+                    </p>
+                </iframe>
+            </div>
+            
+            <div class="text-center mt-6">
+                <p class="text-white text-sm opacity-80">
+                    Problemen met bestellen? <a href="mailto:tickets@nedersanders.nl" class="text-blue-200 underline hover:text-white">Stuur ons een email</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Info Section -->
+    <section class="section">
+        <div class="max-w-4xl mx-auto">
+            <div class="card">
+                <h3 class="feature-title">📋 Belangrijke Informatie</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="info-section">
+                            <h4 class="info-title">🎭 Festival Details</h4>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <span class="info-label">Datum:</span>
+                                    <span>5 Oktober 2025</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Locatie:</span>
+                                    <span>TentEvent Evenementen Terein</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Vanaf:</span>
+                                    <span>15:00</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Leeftijd:</span>
+                                    <span>Alle leeftijden welkom</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%-include('./partials/footer.ejs') %>
