@@ -1,5 +1,5 @@
 // Mobile Navigation Handler
-function initMobileNavigation() {
+document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -66,10 +66,4 @@ function initMobileNavigation() {
             closeMobileMenu();
         }
     });
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileNavigation);
-} else {
-    initMobileNavigation();
-}
+});

@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/dist/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="/javascripts/navigation.js"></script>
   <style></style>
 </head>
 
@@ -38,7 +39,7 @@
         <div class="md:hidden">
           <button id="mobile-menu-toggle" class="text-gray-700 hover:text-blue-600 cursor-pointer">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
@@ -47,17 +48,19 @@
   </nav>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="mobile-menu">
+  <div id="mobile-menu"
+    class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-[60] transform translate-x-full transition-transform duration-300 ease-in-out max-w-[90vw]">
     <div class="p-6">
-      <!-- Mobile menu header -->
-      <div class="mobile-menu-header">
-        <h2 class="mobile-menu-title">Menu</h2>
-        <button id="mobile-menu-close" class="mobile-menu-close">
+      <!-- Header with close button -->
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900">Menu</h2>
+        <button id="mobile-menu-close"
+          class="w-8 h-8 flex items-center justify-center text-gray-900 hover:text-blue-600 cursor-pointer">
           <span class="text-2xl">&times;</span>
         </button>
       </div>
 
-      <!-- Mobile menu links -->
+      <!-- Menu Links -->
       <div class="mobile-menu-links">
         <a href="/" class="mobile-menu-link">Home</a>
         <a href="/tickets" class="mobile-menu-link">Tickets</a>
@@ -68,6 +71,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Main Content Area -->
   <main class="flex-1">
