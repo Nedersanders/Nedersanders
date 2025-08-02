@@ -5,18 +5,26 @@
     </section>
     <!-- Mobile section -->
     <section class="w-full h-full flex flex-col md:hidden p-4 gap-2">
-        <div class="w-full">
-            <h2 class="text-xl font-semibold">Evenementen</h2>
-        </div>
         <div class="w-full h-full grid grid-rows-3 gap-1">
-            <div class="w-full h-auto aspect-video rounded-xl flex flex-col border-gray-200 p-2">
-                <h1 class="text-2xl font-semibold">Event Title</h1>
+            <div class="w-full h-auto aspect-video rounded-xl flex flex-col border border-gray-200 p-2">
+                <div class="flex items-center justify-between pb-2">
+                    <h1 class="text-2xl font-semibold">Event Title</h1>
+                    <button class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5>
+                                <path stroke-linecap=" round" stroke-linejoin="round"
+                            d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                        </svg>
+                        <p>Koop ticket</p>
+                    </button>
+                </div>
+
                 <p class="font-thin">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi molestias
                     soluta natus quidem provident libero ab debitis quia veniam dolor.</p>
                 <div class="w-full grid grid-cols-2 gap-2">
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4">
+                            stroke="currentColor" class="size-5\5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
@@ -24,7 +32,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4">
+                            stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -34,7 +42,7 @@
                     </div>
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4">
+                            stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M14.25 7.756a4.5 4.5 0 1 0 0 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
