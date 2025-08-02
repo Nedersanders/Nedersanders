@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Event = require('../models/Event');
 const sessionManager = require('../utils/sessionManager');
-const { 
-    requireAuth, 
-    requireAdmin 
+const {
+    requireAuth,
+    requireAdmin
 } = require('../middleware/auth');
 
 // API Routes for Authentication
@@ -92,14 +93,14 @@ router.post('/sessions/cleanup', requireAdmin, async (req, res) => {
 router.post('/sessions/revoke/:userId', requireAdmin, async (req, res) => {
     try {
         const userId = parseInt(req.params.userId);
-        
+
         if (isNaN(userId)) {
             return res.status(400).json({
                 success: false,
                 message: 'Ongeldig gebruiker ID'
             });
         }
-        
+
         const deletedCount = await sessionManager.revokeUserSessions(userId);
         res.json({
             success: true,
@@ -142,6 +143,23 @@ router.get('/status', (req, res) => {
         authenticated: isAuthenticated,
         user: isAuthenticated ? req.session.user : null
     });
+});
+
+// GET /api/events - Get all events
+router.get('/events', async (req, res) => {
+    try {
+        const events = await Event.findAll();
+        res.json({
+            success: true,
+            events: events.map(ev => ev.toSafeObject())
+        });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Er is een fout opgetreden bij het ophalen van evenementen'
+        });
+    }
 });
 
 module.exports = router;
