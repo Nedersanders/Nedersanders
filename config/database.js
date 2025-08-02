@@ -43,6 +43,20 @@ async function initDatabase() {
             )
         `);
 
+        await pgPool.query(`
+            CREATE TABLE IF NOT EXISTS events (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                description TEXT,
+                event_date TIMESTAMP,
+                location VARCHAR(255),
+                price DECIMAL(10, 2) DEFAULT 0.00,
+                image_url TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
         // Create trigger for updated_at
         await pgPool.query(`
             CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -56,14 +70,22 @@ async function initDatabase() {
 
         await pgPool.query(`
             DROP TRIGGER IF EXISTS update_users_updated_at ON users;
-            CREATE TRIGGER update_users_updated_at 
-                BEFORE UPDATE ON users 
-                FOR EACH ROW 
+          CREATE TRIGGER update_users_updated_at
+                BEFORE UPDATE ON users
+                FOR EACH ROW
+                EXECUTE FUNCTION update_updated_at_column();
+        `);
+
+        await pgPool.query(`
+            DROP TRIGGER IF EXISTS update_events_updated_at ON events;
+            CREATE TRIGGER update_events_updated_at
+                BEFORE UPDATE ON events
+                FOR EACH ROW
                 EXECUTE FUNCTION update_updated_at_column();
         `);
 
         console.log('✅ Database tables initialized');
-        
+
         // Note: Use 'npm run seed' to seed database with default accounts
     } catch (error) {
         console.error('❌ Database initialization error:', error.message);

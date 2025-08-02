@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const Event = require('../models/Event');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -20,7 +21,13 @@ router.get('/dashboard', function (req, res, next) {
 });
 
 /* GET evenementen page. */
-router.get('/evenementen', function (req, res, next) {
-  res.render('evenementen', { title: 'Evenementen' });
-})
+router.get('/evenementen', async function (req, res, next) {
+  try {
+    const events = await Event.findAll();
+    res.render('evenementen', { title: 'Evenementen', events });
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.render('evenementen', { title: 'Evenementen', events: [] });
+  }
+});
 module.exports = router;
