@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { initDatabase, testConnection } = require('../config/database');
 const User = require('../models/User');
+const Event = require('../models/Event');
 
 async function seedDatabase() {
     try {
