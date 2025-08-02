@@ -1,10 +1,17 @@
 <%- include('./partials/header.ejs') %>
     <!-- Desktop section -->
-    <section class="w-full h-full p-4 md:grid grid-rows-2 hidden">
+    <section class="w-full h-full p-4 md:grid grid-cols-12 hidden">
 
     </section>
     <!-- Mobile section -->
-    <section class="w-full h-full flex flex-col md:hidden p-4 gap-4">
-
+    <section class="w-full h-full grid grid-cols-4 md:hidden p-4">
+        <div class="w-full h-full">
+            <h2 class="text-lg font-semibold">Evenementen</h2>
+        </div>
+        <div class="col-span-3 w-full h-full grid grid-cols-3 gap-2">
+            <div class="w-full h-auto aspect-video bg-red-400 rounded-xl">1</div>
+            <div class="w-full h-auto aspect-video bg-red-400 rounded-xl">2</div>
+            <div class="w-full h-auto aspect-video bg-red-400 rounded-xl">3</div>
+        </div>
     </section>
     </main>
