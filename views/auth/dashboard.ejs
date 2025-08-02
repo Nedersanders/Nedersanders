@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/dist/css/style.css" />
+    <style>
+      .dashboard-container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem 1rem;
+      }
+
+      .dashboard-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .dashboard-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .user-info h1 {
+        font-size: 2rem;
+        font-weight: 300;
+        color: #2c3e50;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .user-info p {
+        color: #7f8c8d;
+        margin: 0.25rem 0;
+        font-size: 0.9rem;
+      }
+
+      .user-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .dashboard-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 10px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-outline:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .dashboard-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+      }
+
+      .card-content p {
+        color: #7f8c8d;
+        margin: 0.5rem 0;
+        line-height: 1.6;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 12px;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #667eea;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .quick-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .quick-action {
+        flex: 1;
+        min-width: 140px;
+        padding: 1rem;
+        background: rgba(102, 126, 234, 0.1);
+        border: 2px solid transparent;
+        border-radius: 12px;
+        text-align: center;
+        text-decoration: none;
+        color: #667eea;
+        transition: all 0.3s ease;
+      }
+
+      .quick-action:hover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.2);
+        color: #5a6fd8;
+      }
+
+      .quick-action-icon {
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-info {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .dashboard-header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .dashboard-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="dashboard-content">
+        <!-- Header Section -->
+        <div class="dashboard-header">
+          <div class="user-info">
+            <h1>Welkom, <%= user.fullName || user.username %></h1>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p>
+              <strong>Rol:</strong>
+              <span class="user-badge"><%= user.role %></span>
+            </p>
+            <p><strong>Gebruikers-ID:</strong> <%= user.id %></p>
+          </div>
+          <div class="dashboard-actions">
+            <a href="/auth/logout" class="btn btn-outline"> 🚪 Uitloggen </a>
+            <a href="/" class="btn btn-primary"> 🏠 Naar Website </a>
+          </div>
+        </div>
+
+        <!-- Dashboard Cards Grid -->
+        <div class="dashboard-grid">
+          <!-- Account Information Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div class="card-icon">👤</div>
+              <h2 class="card-title">Account Informatie</h2>
+            </div>
+            <div class="card-content">
+              <p>
+                Hier kunt u uw accountgegevens bekijken en beheren. Uw account
+                is succesvol geverifieerd en actief.
+              </p>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-number">1</span>
+                  <span class="stat-label">Account</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number"
+                    ><%= user.role === 'admin' ? '∞' : 'User' %></span
+                  >
+                  <span class="stat-label">Rechten</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Status Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div class="card-icon">⚡</div>
+              <h2 class="card-title">Systeem Status</h2>
+            </div>
+            <div class="card-content">
+              <p>
+                Alle systemen zijn operationeel en de veiligheidsvoorzieningen
+                zijn actief.
+              </p>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-number">🟢</span>
+                  <span class="stat-label">Database</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">🟢</span>
+                  <span class="stat-label">Sessie</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">🟢</span>
+                  <span class="stat-label">Beveiliging</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div class="card-icon">🚀</div>
+              <h2 class="card-title">Snelle Acties</h2>
+            </div>
+            <div class="card-content">
+              <p>
+                Veelgebruikte functies en snelkoppelingen voor efficiënt werken.
+              </p>
+              <div class="quick-actions">
+                <% if (user.role === 'admin') { %>
+                <a href="/auth/users" class="quick-action">
+                  <span class="quick-action-icon">👥</span>
+                  Gebruikers
+                </a>
+                <a href="/auth/register" class="quick-action">
+                  <span class="quick-action-icon">➕</span>
+                  Nieuwe Gebruiker
+                </a>
+                <% } %>
+                <a href="/" class="quick-action">
+                  <span class="quick-action-icon">🏠</span>
+                  Website
+                </a>
+                <a href="/auth/logout" class="quick-action">
+                  <span class="quick-action-icon">🚪</span>
+                  Uitloggen
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <% if (user.role === 'admin') { %>
+          <!-- Admin Tools Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div class="card-icon">🛠️</div>
+              <h2 class="card-title">Beheer Tools</h2>
+            </div>
+            <div class="card-content">
+              <p>
+                Administratieve functies voor systeembeheer en gebruikersbeheer.
+              </p>
+              <div class="quick-actions">
+                <a href="/auth/users" class="quick-action">
+                  <span class="quick-action-icon">👥</span>
+                  Alle Gebruikers
+                </a>
+                <a href="/auth/register" class="quick-action">
+                  <span class="quick-action-icon">👤</span>
+                  Nieuwe Gebruiker
+                </a>
+                <a href="/auth/sessions" class="quick-action">
+                  <span class="quick-action-icon">🕙</span>
+                  Sessie Beheer
+                </a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <!-- Footer Information -->
+        <div class="footer-info">
+          <p>
+            <strong>Nedersanders.nl Development Environment</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

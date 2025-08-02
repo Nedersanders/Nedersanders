@@ -4,27 +4,50 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "npm run build:css && nodemon ./bin/www",
+    "dev": "npm run build && PORT=3123 nodemon ./bin/www",
+    "build:start": "npm run build && node ./bin/www",
+    "build": "npm run build:css && rollup -c",
+    "build:watch": "npm run build:css && rollup -c --watch",
+    "build:prod": "npm run build:css && NODE_ENV=production rollup -c",
     "build:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css",
-    "watch:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css --watch"
+    "watch:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css --watch",
+    "seed": "node scripts/seed.js",
+    "init-sessions": "node scripts/init-sessions.js",
+    "test-sessions": "node scripts/test-sessions.js",
+    "check-sessions": "node scripts/check-sessions.js"
   },
   "dependencies": {
     "@sentry/node": "^9.42.0",
     "@sentry/profiling-node": "^9.42.0",
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
+    "bcryptjs": "^3.0.2",
+    "connect-sqlite3": "^0.9.16",
     "cookie-parser": "~1.4.4",
     "debug": "~4.4.1",
     "dotenv": "^17.2.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
     "http-errors": "~2.0.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
+    "pg": "^8.16.3",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
+    "sqlite3": "^5.1.7",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "cssnano": "^6.0.1",
+    "nodemon": "^3.1.10",
+    "postcss-import": "^16.0.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }

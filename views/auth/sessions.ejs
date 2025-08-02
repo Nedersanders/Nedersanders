@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/dist/css/style.css' />
+    <style>
+        .sessions-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+        }
+
+        .sessions-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sessions-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-info h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .header-info p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .sessions-table-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .table th {
+            background: rgba(102, 126, 234, 0.05);
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .user-info {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .session-meta {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 0.25rem;
+        }
+
+        .session-time {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .sessions-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .table {
+                font-size: 0.9rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sessions-container">
+        <div class="sessions-content">
+            <!-- Header Section -->
+            <div class="sessions-header">
+                <div class="header-info">
+                    <h1>Sessie Beheer</h1>
+                    <p>Beheer en monitor actieve gebruikerssessies</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/auth/dashboard" class="btn btn-outline">← Terug naar Dashboard</a>
+                    <button onclick="location.reload()" class="btn btn-primary">🔄 Vernieuwen</button>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <% if (typeof success !== 'undefined' && success) { %>
+            <div class="alert alert-success">
+                ✅ <%= success %>
+            </div>
+            <% } %>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-error">
+                ❌ <%= error %>
+            </div>
+            <% } %>
+
+            <!-- Session Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number"><%= stats.totalSessions %></span>
+                    <div class="stat-label">Totaal Sessies</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><%= stats.activeSessions %></span>
+                    <div class="stat-label">Actieve Sessies</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><%= stats.expiredSessions %></span>
+                    <div class="stat-label">Verlopen Sessies</div>
+                </div>
+            </div>
+
+            <!-- Active Sessions Table -->
+            <div class="sessions-table-container">
+                <div class="table-header">
+                    <h2 class="table-title">🟢 Actieve Sessies</h2>
+                    <form method="POST" action="/auth/sessions/cleanup" style="display: inline;">
+                        <button type="submit" class="btn btn-warning" 
+                                onclick="return confirm('Weet je zeker dat je alle verlopen sessies wilt opruimen?')">
+                            🧹 Verlopen Sessies Opruimen
+                        </button>
+                    </form>
+                </div>
+
+                <% if (activeSessions.length === 0) { %>
+                <div class="empty-state">
+                    <div class="empty-state-icon">💤</div>
+                    <h3>Geen actieve sessies</h3>
+                    <p>Er zijn momenteel geen actieve gebruikerssessies</p>
+                </div>
+                <% } else { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Gebruiker</th>
+                            <th>Login Tijd</th>
+                            <th>Laatste Activiteit</th>
+                            <th>IP Adres</th>
+                            <th>Browser</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% activeSessions.forEach(session => { %>
+                        <tr>
+                            <td>
+                                <div class="user-info">📧 <%= session.email %></div>
+                                <div class="session-meta">ID: <%= session.userId %></div>
+                            </td>
+                            <td>
+                                <div class="session-time">
+                                    🕐 <%= session.loginTime ? new Date(session.loginTime).toLocaleString('nl-NL') : 'Onbekend' %>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="session-time">
+                                    ⚡ <%= session.lastActivity ? new Date(session.lastActivity).toLocaleString('nl-NL') : 'Onbekend' %>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="session-time">
+                                    🌐 <%= session.ipAddress || 'Onbekend' %>
+                                </div>
+                            </td>
+                            <td style="max-width: 200px;">
+                                <div class="session-meta" title="<%= session.userAgent || 'Onbekend' %>">
+                                    🖥️ <%= session.userAgent ? session.userAgent.substring(0, 40) + (session.userAgent.length > 40 ? '...' : '') : 'Onbekend' %>
+                                </div>
+                            </td>
+                            <td>
+                                <form method="POST" action="/auth/sessions/revoke/<%= session.userId %>" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger" 
+                                            onclick="return confirm('Weet je zeker dat je alle sessies voor deze gebruiker wilt intrekken?')">
+                                        🚫 Intrekken
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+
+            <!-- Footer Information -->
+            <div class="footer-info">
+                <p>
+                    <strong>💡 Tip:</strong> Sessies worden automatisch elke 60 minuten opgeruimd. 
+                    Actieve sessies verlopen na 24 uur inactiviteit.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh every 30 seconds
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
+
+        // Add visual feedback for actions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.type === 'submit') {
+                    this.style.opacity = '0.7';
+                    this.innerHTML = '⏳ Bezig...';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

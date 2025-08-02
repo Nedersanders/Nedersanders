@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/output.css' />
-  </head>
-  <body>
-    <h1 class="text-3xl font-bold text-blue-600"><%= title %></h1>
-    <p class="text-lg text-gray-700 mt-4">Welcome to <%= title %></p>
-    <p class="text-sm text-gray-500 mt-2">This is a staging server test</p>
-  </body>
-</html>
+<%- include('./partials/header.ejs') %>
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12">
+        <div class="max-width">
+            <div class="festival-card bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold text-blue-800 mb-4">Nedersanders Event 2025</h1>
+                    <p class="text-lg text-gray-700 mb-6">Het grootste festival van het jaar, met de beste artiesten en een geweldige sfeer!</p>
+                    <a href="/tickets" class="festival-btn festival-btn-primary">Bestel Tickets</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>
