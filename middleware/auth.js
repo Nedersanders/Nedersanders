@@ -133,6 +133,13 @@ const attachUser = async (req, res, next) => {
         res.locals.user = null;
         req.user = null;
     }
+
+    // Handle flash messages
+    res.locals.success = req.session.success;
+    res.locals.error = req.session.error;
+    delete req.session.success;
+    delete req.session.error;
+
     next();
 };
 

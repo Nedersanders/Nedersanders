@@ -1,0 +1,180 @@
+<%- include('partials/header') %>
+
+<main class="festival-section festival-overflow-safe">
+    <div class="festival-container">
+        <div class="w-full max-w-4xl mx-auto">
+            <h1 class="festival-title festival-high-contrast">Mijn Profiel</h1>
+            
+            <!-- Flash Messages -->
+            <% if (typeof success !== 'undefined' && success) { %>
+                <div class="festival-alert festival-alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+            
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="festival-alert festival-alert-error">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Profile Image Section -->
+                <div class="lg:col-span-1">
+                    <div class="festival-card">
+                        <h2 class="text-xl font-bold mb-4 text-blue-700">Profiel Foto</h2>
+                        
+                        <div class="text-center">
+                            <div class="profile-image-container">
+                                <% if (user.profileImageUrl) { %>
+                                    <img src="<%= user.profileImageUrl %>" 
+                                         alt="Profiel foto" 
+                                         class="profile-image">
+                                <% } else { %>
+                                    <div class="profile-image-placeholder">
+                                        <svg class="w-16 h-16 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                    </div>
+                                <% } %>
+                            </div>
+                            
+                            <form action="/user/profile/picture" method="POST" enctype="multipart/form-data" class="mt-4">
+                                <div class="file-upload-wrapper">
+                                    <input type="file" 
+                                           id="profileImage" 
+                                           name="profileImage" 
+                                           accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                                           class="file-input">
+                                    <label for="profileImage" class="file-label">
+                                        Kies foto
+                                    </label>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    JPG, PNG, WebP of GIF. Max 2MB.
+                                </p>
+                                <button type="submit" class="festival-btn mt-3 w-full">
+                                    Upload Foto
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Information Section -->
+                <div class="lg:col-span-2">
+                    <div class="festival-card">
+                        <h2 class="text-xl font-bold mb-4 text-blue-700">Profiel Informatie</h2>
+                        
+                        <form action="/user/profile/update" method="POST" class="space-y-4">
+                            <div class="form-group">
+                                <label for="full_name" class="form-label">Volledige Naam</label>
+                                <input type="text" 
+                                       id="full_name" 
+                                       name="full_name" 
+                                       value="<%= user.fullName || '' %>"
+                                       class="form-input"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username" class="form-label">Gebruikersnaam</label>
+                                <input type="text" 
+                                       id="username" 
+                                       name="username" 
+                                       value="<%= user.username || '' %>"
+                                       class="form-input"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" 
+                                       id="email" 
+                                       name="email" 
+                                       value="<%= user.email || '' %>"
+                                       class="form-input"
+                                       disabled>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    E-mailadres kan niet worden gewijzigd
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="role" class="form-label">Rol</label>
+                                <input type="text" 
+                                       id="role" 
+                                       name="role" 
+                                       value="<%= user.role || '' %>"
+                                       class="form-input"
+                                       disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="createdAt" class="form-label">Lid sinds</label>
+                                <input type="text" 
+                                       id="createdAt" 
+                                       name="createdAt" 
+                                       value="<%= user.createdAt ? new Date(user.createdAt).toLocaleDateString('nl-NL') : '' %>"
+                                       class="form-input"
+                                       disabled>
+                            </div>
+
+                            <button type="submit" class="festival-btn">
+                                Profiel Bijwerken
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Password Change Section -->
+                    <div class="festival-card mt-6">
+                        <h2 class="text-xl font-bold mb-4 text-blue-700">Wachtwoord Wijzigen</h2>
+                        
+                        <form action="/auth/change-password" method="POST" class="space-y-4">
+                            <div class="form-group">
+                                <label for="currentPassword" class="form-label">Huidig Wachtwoord</label>
+                                <input type="password" 
+                                       id="currentPassword" 
+                                       name="currentPassword" 
+                                       class="form-input"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword" class="form-label">Nieuw Wachtwoord</label>
+                                <input type="password" 
+                                       id="newPassword" 
+                                       name="newPassword" 
+                                       class="form-input"
+                                       minlength="8"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Bevestig Nieuw Wachtwoord</label>
+                                <input type="password" 
+                                       id="confirmPassword" 
+                                       name="confirmPassword" 
+                                       class="form-input"
+                                       minlength="8"
+                                       required>
+                            </div>
+
+                            <button type="submit" class="festival-btn festival-btn-secondary">
+                                Wachtwoord Wijzigen
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="/" class="festival-btn festival-btn-secondary">
+                    Terug naar Home
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

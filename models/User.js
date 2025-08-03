@@ -12,11 +12,13 @@ class User {
         this.updatedAt = userData.updated_at;
         this.lastLogin = userData.last_login;
         this.isActive = userData.is_active;
+        this.changePasswordToken = userData.change_password_token;
+        this.profileImageUrl = userData.profile_image_url;
     }
 
     // Create a new user
     static async create(userData) {
-        const { email, password, fullName, username, role = 'user' } = userData;
+        const { email, password, fullName, username, role = 'user', profileImageUrl = null } = userData;
         
         try {
             // Hash password
@@ -24,12 +26,12 @@ class User {
             const passwordHash = await bcrypt.hash(password, saltRounds);
             
             const query = `
-                INSERT INTO users (email, password_hash, full_name, username, role)
-                VALUES ($1, $2, $3, $4, $5)
+                INSERT INTO users (email, password_hash, full_name, username, role, profile_image_url)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING *
             `;
             
-            const result = await pgPool.query(query, [email, passwordHash, fullName, username, role]);
+            const result = await pgPool.query(query, [email, passwordHash, fullName, username, role, profileImageUrl]);
             return new User(result.rows[0]);
         } catch (error) {
             if (error.code === '23505') { // Unique constraint violation
@@ -64,7 +66,7 @@ class User {
             if (result.rows.length === 0) {
                 return null;
             }
-            
+            console.log('🔍 User found:', result.rows[0]);
             return new User(result.rows[0]);
         } catch (error) {
             throw error;
@@ -112,7 +114,7 @@ class User {
 
     // Update user
     async update(updateData) {
-        const allowedFields = ['full_name', 'username', 'role'];
+        const allowedFields = ['full_name', 'username', 'role', 'profile_image_url'];
         const updates = [];
         const values = [];
         let valueIndex = 1;
@@ -190,6 +192,81 @@ class User {
         }
     }
 
+    // Generate change password token
+    async generateChangePasswordToken() {
+        try {
+            const crypto = require('crypto');
+            const token = crypto.randomBytes(32).toString('hex');
+            
+            await pgPool.query(
+                'UPDATE users SET change_password_token = $1 WHERE id = $2',
+                [token, this.id]
+            );
+            
+            this.changePasswordToken = token;
+            return token;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Verify change password token and change password
+    static async changePasswordWithToken(token, newPassword) {
+        try {
+            const query = 'SELECT * FROM users WHERE change_password_token = $1 AND is_active = true';
+            const result = await pgPool.query(query, [token]);
+            
+            if (result.rows.length === 0) {
+                throw new Error('Invalid or expired token');
+            }
+            
+            const user = new User(result.rows[0]);
+            
+            // Hash new password
+            const saltRounds = 12;
+            const passwordHash = await bcrypt.hash(newPassword, saltRounds);
+            
+            // Update password and clear token
+            await pgPool.query(
+                'UPDATE users SET password_hash = $1, change_password_token = NULL WHERE id = $2',
+                [passwordHash, user.id]
+            );
+            
+            user.changePasswordToken = null;
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Clear change password token
+    async clearChangePasswordToken() {
+        try {
+            await pgPool.query(
+                'UPDATE users SET change_password_token = NULL WHERE id = $1',
+                [this.id]
+            );
+            this.changePasswordToken = null;
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Update profile image
+    async updateProfileImage(imageUrl) {
+        try {
+            await pgPool.query(
+                'UPDATE users SET profile_image_url = $1 WHERE id = $2',
+                [imageUrl, this.id]
+            );
+            this.profileImageUrl = imageUrl;
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     // Convert to safe object (without sensitive data)
     toSafeObject() {
         return {
@@ -200,7 +277,8 @@ class User {
             role: this.role,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
-            lastLogin: this.lastLogin
+            lastLogin: this.lastLogin,
+            profileImageUrl: this.profileImageUrl
         };
     }
 }

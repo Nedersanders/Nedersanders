@@ -14,6 +14,7 @@ const rateLimit = require('express-rate-limit');
 // Import routes
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var userRouter = require('./routes/user');
 var apiRouter = require('./routes/api');
 
 // Import middleware
@@ -86,21 +87,6 @@ app.use(session({
     name: 'nedersanders.sid'
 }));
 
-// Debug session saving
-app.use((req, res, next) => {
-    const originalSend = res.send;
-    res.send = function(data) {
-        if (req.session && req.sessionID) {
-            console.log('🔄 Request completed, session ID:', req.sessionID);
-            if (req.session.user) {
-                console.log('👤 User in session:', req.session.user.email);
-            }
-        }
-        originalSend.call(this, data);
-    };
-    next();
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -111,6 +97,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve profile images
+app.use('/images/profile', express.static(path.join(__dirname, 'data/profile_images')));
+
 // Authentication middleware
 app.use(validateSession);
 app.use(isAuthenticated);
@@ -119,6 +108,7 @@ app.use(attachUser);
 // Routes
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 app.use('/api', apiRouter);
 
 // Initialize Sentry after the routes are set up

@@ -32,6 +32,9 @@ router.post('/login', redirectIfAuthenticated, async (req, res) => {
     
     try {
         const user = await User.verifyPassword(email, password);
+        console.log('🔍 User object type:', typeof user);
+        console.log('🔍 User object:', user);
+        console.log('🔍 User has toSafeObject method:', typeof user?.toSafeObject);
         
         if (!user) {
             if (req.session) req.session.error = 'Ongeldig email adres of wachtwoord';
