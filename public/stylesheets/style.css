@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./components.css";
 
 .pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite alternate;

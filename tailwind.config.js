@@ -5,6 +5,16 @@ module.exports = {
     extend: {
       colors: {
       },
+      height: {
+        '8.5': '34px',
+        '9.5': '38px',
+        '13': '52px',
+      },
+      width: {
+        '8.5': '34px',
+        '9.5': '38px',
+        '13': '52px',
+      },
     },
   },
   plugins: [],

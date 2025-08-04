@@ -16,8 +16,8 @@
       <div class="flex justify-between items-center py-2">
         <div class="flex items-center">
           <div class="flex items-center justify-center w-20 h-auto">
-            <a href="/" class="nav-logo-link"> <!-- TODO: Get PNG logo-->
-              <img src="/images/NederSandersLogo.png" alt="Nedersanders Logo" class="nav-logo-img" />
+            <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent"> <!-- TODO: Get PNG logo-->
+              <img src="/images/NederSandersLogo.png" alt="Nedersanders Logo" class="w-full h-auto" />
             </a>
           </div>
         </div>
@@ -61,16 +61,16 @@
       </div>
 
       <!-- Menu Links -->
-      <div class="mobile-menu-links">
-        <a href="/" class="mobile-menu-link">Home</a>
-        <a href="/tickets" class="mobile-menu-link">Tickets</a>
-        <a href="/evenementen" class="mobile-menu-link">Evenementen</a>
-        <a href="#contact" class="mobile-menu-link">Contact</a>
+      <div class="space-y-6">
+        <a href="/" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Home</a>
+        <a href="/tickets" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Tickets</a>
+        <a href="/evenementen" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Evenementen</a>
+        <a href="#contact" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Contact</a>
         <% if (typeof user !== 'undefined' && user) { %>
-          <a href="/user/account" class="mobile-menu-link">Mijn Account</a>
-          <a href="/auth/logout" class="mobile-menu-link">Uitloggen</a>
+          <a href="/user/account" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Mijn Account</a>
+          <a href="/auth/logout" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Uitloggen</a>
         <% } else { %>
-          <a href="/auth/login" class="mobile-menu-link">Inloggen</a>
+          <a href="/auth/login" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Inloggen</a>
         <% } %>
       </div>
     </div>
