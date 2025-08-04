@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+.light {
+    --primary-default: #2c71f6;
+    --primary-hover: #2257be;
+    --primary-disabled: #bbd1fc;
+    --primary-focus: #2c71f6;
+
+    /* Secondary Colors */
+    --secondary-border: #d8d8da;
+    --secondary-hover: #f8f9fb;
+    --secondary-disabled: #bbd1fc;
+
+    /* Text Colors */
+    --text-primary: #202020;
+    --text-inverse: #ffffff;
+    --text-disabled: #bbd1fc;
+
+    /* Background Colors */
+    --bg-disabled: rgba(187, 209, 252, 0.1);
+    --bg-hover: #f8f9fb;
+  }
+  .dark {
+    --primary-default: #2c71f6;
+    --primary-hover: #2257be;
+    --primary-disabled: #bbd1fc;
+    --primary-focus: #2c71f6;
+
+    /* Secondary Colors */
+    --secondary-border: #4a4a4b;
+    --secondary-hover: #323232;
+    --secondary-disabled: rgba(187, 209, 252, 0.1);
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-inverse: #202020;
+    --text-disabled: #bbd1fc;
+
+    /* Background Colors */
+    --bg-disabled: rgba(51, 56, 66, 0.1);
+    --bg-hover: #2e2e2e;
+  }
+}
+
+@theme inline{
+      /* Primary Colors */
+  --color-primary-default: var(--primary-default);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-disabled: var(--primary-disabled);
+  --color-primary-focus: var(--primary-focus);
+
+  /* Secondary Colors */
+  --color-secondary-border: var(--secondary-border);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-disabled: var(--secondary-disabled);
+
+  /* Text Colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-disabled: var(--text-disabled);
+
+  /* Background Colors */
+  --color-bg-disabled: var(--bg-disabled);
+  --color-bg-hover: var(--bg-hover);
+}

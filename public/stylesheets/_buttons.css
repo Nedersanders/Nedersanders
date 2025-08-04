@@ -1,31 +1,5 @@
 /* CSS Variables for Colors */
-:root {
-  /* Primary Colors */
-  --color-primary-default: #2C71F6;
-  --color-primary-hover: #2257BE;
-  --color-primary-disabled: #BBD1FC;
-  --color-primary-focus: #2C71F6;
-  
-  /* Secondary Colors */
-  --color-secondary-border: #D8D8DA;
-  --color-secondary-hover: #F8F9FB;
-  --color-secondary-disabled: #BBD1FC;
-  
-  /* Text Colors */
-  --color-text-primary: #202020;
-  --color-text-inverse: #FFFFFF;
-  --color-text-disabled: #BBD1FC;
-  
-  /* Background Colors */
-  --color-bg-disabled: rgba(187, 209, 252, 0.1);
-  --color-bg-hover: #F8F9FB;
-  
-  /* Dark Mode Colors */
-  --color-dark-border: #4A4A4B;
-  --color-dark-hover: #323232;
-  --color-dark-disabled-bg: rgba(187, 209, 252, 0.1);
-  --color-dark-disabled-text: rgba(187, 209, 252, 0.2);
-}
+
 
 /* Base Button Component */
 .btn {
@@ -204,26 +178,6 @@
     &::before {
       @apply inline-block w-4 h-4 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent;
       content: '';
-    }
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-secondary-border: var(--color-dark-border);
-    --color-secondary-hover: var(--color-dark-hover);
-    --color-bg-disabled: var(--color-dark-disabled-bg);
-    --color-text-disabled: var(--color-dark-disabled-text);
-  }
-  
-  .btn {
-    &.btn-secondary {
-      color: var(--color-text-inverse);
-      
-      &.btn-icon svg {
-        fill: var(--color-text-inverse);
-      }
     }
   }
 }

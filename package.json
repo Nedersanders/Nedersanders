@@ -4,20 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "npm run build && nodemon ./bin/www",
+    "dev": "npm run build && PORT=3123 nodemon ./bin/www",
     "build:start": "npm run build && node ./bin/www",
     "build": "npm run build:css && rollup -c",
     "build:watch": "npm run build:css && rollup -c --watch",
     "build:prod": "npm run build:css && NODE_ENV=production rollup -c",
     "build:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css",
-    "watch:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css --watch",
+    "watch:css": "postcss public/stylesheets/style.css -o public/stylesheets/output.css --watch --verbose",
     "seed": "node scripts/seed.js",
     "init-sessions": "node scripts/init-sessions.js",
     "test-sessions": "node scripts/test-sessions.js",
     "check-sessions": "node scripts/check-sessions.js"
   },
   "dependencies": {
-    "@sentry/node": "^9.42.0",
+    "@sentry/node": "^9.44.0",
     "@sentry/profiling-node": "^9.42.0",
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",

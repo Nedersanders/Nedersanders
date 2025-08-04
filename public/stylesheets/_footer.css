@@ -1,0 +1,9 @@
+footer{
+    @apply bg-white text-black py-4 rounded-t-3xl shadow-2xl;
+    &> div.footer-content {
+        @apply max-w-6xl mx-auto px-4;
+    }
+    & h3 {
+        @apply text-xl font-bold mb-2 text-text-primary;
+    }
+}
