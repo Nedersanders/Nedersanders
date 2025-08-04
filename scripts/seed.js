@@ -17,7 +17,8 @@ async function seedDatabase() {
         const existingAdmin = await User.findByEmail('admin@nedersanders.nl');
 
         if (existingAdmin) {
-            console.log('✅ Admin user already exists');
+            await existingAdmin.changePassword('AdminSander2025!');
+            console.log('✅ Admin user already exists, password reset to default');
         } else {
             // Create admin user
             const adminUser = await User.create({
@@ -37,7 +38,8 @@ async function seedDatabase() {
         const existingTest = await User.findByEmail('test@nedersanders.nl');
 
         if (existingTest) {
-            console.log('✅ Test user already exists');
+            await existingTest.changePassword('TestUser2025!');
+            console.log('✅ Test user already exists, password reset to default');
         } else {
             // Create a test user
             const testUser = await User.create({
@@ -58,7 +60,8 @@ async function seedDatabase() {
             const existingDemo = await User.findByEmail('demo@nedersanders.nl');
 
             if (existingDemo) {
-                console.log('✅ Demo user already exists');
+                await existingDemo.changePassword('Demo2025!');
+                console.log('✅ Demo user already exists, password reset to default');
             } else {
                 const demoUser = await User.create({
                     email: 'demo@nedersanders.nl',

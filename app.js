@@ -5,6 +5,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
 var logger = require('morgan');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -87,6 +88,9 @@ app.use(session({
     name: 'nedersanders.sid'
 }));
 
+// Flash messages middleware
+app.use(flash());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -96,6 +100,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Make flash messages available in all views
+app.use(function(req, res, next) {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.info = req.flash('info');
+    next();
+});
 
 // Serve profile images
 app.use('/images/profile', express.static(path.join(__dirname, 'data/profile_images')));

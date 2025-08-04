@@ -2,20 +2,16 @@
 <html lang="nl" class="h-full">
 
 <head>
-  <title>
-    <%= title %>
-  </title>
+  <title><%= typeof title !== 'undefined' ? title : 'Nedersanders.nl' %></title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/dist/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
-  <script src="/javascripts/navigation.js"></script>
-  <style></style>
 </head>
 
 <body class="h-full flex flex-col">
   <!-- Navigation -->
-  <nav class="bg-white/95 backdrop-blur-sm g relative w-full top-0 z-50;">
+  <nav class="bg-white/95 backdrop-blur-sm shadow-lg relative w-full top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-2">
         <div class="flex items-center">
@@ -33,8 +29,12 @@
             class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Evenementen</a>
           <a href="#contact"
             class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Contact</a>
-          <a href="/auth/login"
-            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Inloggen</a>
+          <% if (typeof user !== 'undefined' && user) { %>
+            <a href="/user/account" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Mijn Account</a>
+            <a href="/auth/logout" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Uitloggen</a>
+          <% } else { %>
+            <a href="/auth/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Inloggen</a>
+          <% } %>
         </div>
         <div class="md:hidden">
           <button id="mobile-menu-toggle" class="text-gray-700 hover:text-blue-600 cursor-pointer">
@@ -66,7 +66,12 @@
         <a href="/tickets" class="mobile-menu-link">Tickets</a>
         <a href="/evenementen" class="mobile-menu-link">Evenementen</a>
         <a href="#contact" class="mobile-menu-link">Contact</a>
-        <a href="/auth/login" class="mobile-menu-link">Inloggen</a>
+        <% if (typeof user !== 'undefined' && user) { %>
+          <a href="/user/account" class="mobile-menu-link">Mijn Account</a>
+          <a href="/auth/logout" class="mobile-menu-link">Uitloggen</a>
+        <% } else { %>
+          <a href="/auth/login" class="mobile-menu-link">Inloggen</a>
+        <% } %>
       </div>
     </div>
   </div>

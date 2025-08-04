@@ -1,19 +1,19 @@
-<%- include('partials/header') %>
+<%- include('./partials/header') %>
 
-<main class="festival-section festival-overflow-safe">
-    <div class="festival-container">
+<main class="section overflow-safe">
+    <div class="container">
         <div class="w-full max-w-4xl mx-auto">
-            <h1 class="festival-title festival-high-contrast">Mijn Profiel</h1>
+            <h1 class="title high-contrast">Mijn Profiel</h1>
             
             <!-- Flash Messages -->
             <% if (typeof success !== 'undefined' && success) { %>
-                <div class="festival-alert festival-alert-success">
+                <div class="alert alert-success">
                     <%= success %>
                 </div>
             <% } %>
             
             <% if (typeof error !== 'undefined' && error) { %>
-                <div class="festival-alert festival-alert-error">
+                <div class="alert alert-error">
                     <%= error %>
                 </div>
             <% } %>
@@ -21,7 +21,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Profile Image Section -->
                 <div class="lg:col-span-1">
-                    <div class="festival-card">
+                    <div class="card">
                         <h2 class="text-xl font-bold mb-4 text-blue-700">Profiel Foto</h2>
                         
                         <div class="text-center">
@@ -39,7 +39,7 @@
                                 <% } %>
                             </div>
                             
-                            <form action="/user/profile/picture" method="POST" enctype="multipart/form-data" class="mt-4">
+                            <form action="/user/account/picture" method="POST" enctype="multipart/form-data" class="mt-4" id="profileImageForm">
                                 <div class="file-upload-wrapper">
                                     <input type="file" 
                                            id="profileImage" 
@@ -53,20 +53,21 @@
                                 <p class="text-sm text-gray-600 mt-2">
                                     JPG, PNG, WebP of GIF. Max 2MB.
                                 </p>
-                                <button type="submit" class="festival-btn mt-3 w-full">
+                                <button type="submit" class="btn mt-3 w-full">
                                     Upload Foto
                                 </button>
                             </form>
+                            <script src="/dist/js/profile-image-upload.min.js"></script>
                         </div>
                     </div>
                 </div>
 
                 <!-- Profile Information Section -->
                 <div class="lg:col-span-2">
-                    <div class="festival-card">
+                    <div class="card">
                         <h2 class="text-xl font-bold mb-4 text-blue-700">Profiel Informatie</h2>
                         
-                        <form action="/user/profile/update" method="POST" class="space-y-4">
+                        <form action="/user/account/update" method="POST" class="space-y-4">
                             <div class="form-group">
                                 <label for="full_name" class="form-label">Volledige Naam</label>
                                 <input type="text" 
@@ -120,17 +121,18 @@
                                        disabled>
                             </div>
 
-                            <button type="submit" class="festival-btn">
+                            <button type="submit" class="btn">
                                 Profiel Bijwerken
                             </button>
                         </form>
                     </div>
 
                     <!-- Password Change Section -->
-                    <div class="festival-card mt-6">
+                    <div class="card mt-6">
                         <h2 class="text-xl font-bold mb-4 text-blue-700">Wachtwoord Wijzigen</h2>
                         
-                        <form action="/auth/change-password" method="POST" class="space-y-4">
+                        <form action="/auth/change-password" method="POST" class="space-y-4" id="changePasswordForm">
+                            <script src="/dist/js/change-password.min.js"></script>
                             <div class="form-group">
                                 <label for="currentPassword" class="form-label">Huidig Wachtwoord</label>
                                 <input type="password" 
@@ -160,7 +162,7 @@
                                        required>
                             </div>
 
-                            <button type="submit" class="festival-btn festival-btn-secondary">
+                            <button type="submit" class="btn btn-secondary">
                                 Wachtwoord Wijzigen
                             </button>
                         </form>
@@ -169,7 +171,7 @@
             </div>
 
             <div class="mt-8 text-center">
-                <a href="/" class="festival-btn festival-btn-secondary">
+                <a href="/" class="btn btn-secondary">
                     Terug naar Home
                 </a>
             </div>
@@ -177,4 +179,4 @@
     </div>
 </main>
 
-<%- include('partials/footer') %>
+<%- include('./partials/footer') %>

@@ -211,4 +211,80 @@ router.post('/sessions/revoke/:userId', requireAdmin, async (req, res) => {
     }
 });
 
+// POST /auth/change-password - Change user password (AJAX or normal)
+router.post('/change-password', requireAuth, async (req, res) => {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    console.log('🔐 Change password request:', {
+        currentPassword,
+        newPassword,
+        confirmPassword
+    });
+    const isAjax = req.xhr || req.headers['x-requested-with'] === 'XMLHttpRequest';
+    try {
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            const msg = 'Alle velden zijn verplicht';
+            if (isAjax) return res.status(400).json({ success: false, message: msg });
+            req.session.error = msg;
+            return res.redirect('/user/account');
+        }
+        if (newPassword !== confirmPassword) {
+            const msg = 'Nieuwe wachtwoorden komen niet overeen';
+            if (isAjax) return res.status(400).json({ success: false, message: msg });
+            req.session.error = msg;
+            return res.redirect('/user/account');
+        }
+        if (newPassword.length < 8) {
+            const msg = 'Nieuw wachtwoord moet minimaal 8 karakters zijn';
+            if (isAjax) return res.status(400).json({ success: false, message: msg });
+            req.session.error = msg;
+            return res.redirect('/user/account');
+        }
+
+        const user = await User.findById(req.session.user.id);
+        if (!user) {
+            const msg = 'Gebruiker niet gevonden';
+            if (isAjax) return res.status(404).json({ success: false, message: msg });
+            return res.status(404).render('error', { message: msg, error: { status: 404, stack: '' } });
+        }
+
+        // Verify current password
+
+        let validUser;
+        try {
+            validUser = await User.verifyPassword(user.email, currentPassword);
+            console.log('verifyPassword result:', validUser);
+        } catch (verifyErr) {
+            console.error('Password verification error:', verifyErr);
+            if (isAjax) return res.status(500).json({ success: false, message: 'Fout bij wachtwoordcontrole: ' + verifyErr });
+            req.session.error = 'Fout bij wachtwoordcontrole: ' + verifyErr;
+            return res.redirect('/user/account');
+        }
+        if (!validUser || !validUser.id) {
+            const msg = 'Huidig wachtwoord is onjuist';
+            if (isAjax) return res.status(400).json({ success: false, message: msg });
+            req.session.error = msg;
+            return res.redirect('/user/account');
+        }
+
+        try {
+            await user.changePassword(newPassword);
+        } catch (changeErr) {
+            console.error('Password change error:', changeErr);
+            if (isAjax) return res.status(500).json({ success: false, message: 'Fout bij wachtwoord wijzigen: ' + changeErr });
+            req.session.error = 'Fout bij wachtwoord wijzigen: ' + changeErr;
+            return res.redirect('/user/account');
+        }
+
+        if (isAjax) return res.json({ success: true, message: 'Wachtwoord succesvol gewijzigd' });
+        req.session.success = 'Wachtwoord succesvol gewijzigd';
+        res.redirect('/user/account');
+    } catch (error) {
+        console.error('Error changing password (outer catch):', error);
+        const msg = 'Er is een fout opgetreden bij het wijzigen van het wachtwoord: ' + error;
+        if (isAjax) return res.status(500).json({ success: false, message: msg });
+        req.session.error = msg;
+        res.redirect('/user/account');
+    }
+});
+
 module.exports = router;
