@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
-.light {
+  .light {
     --primary-default: #2c71f6;
     --primary-hover: #2257be;
     --primary-disabled: #bbd1fc;
@@ -14,12 +14,26 @@
 
     /* Text Colors */
     --text-primary: #202020;
+    --text-secondary: #4a4a4b;
     --text-inverse: #ffffff;
     --text-disabled: #bbd1fc;
 
     /* Background Colors */
     --bg-disabled: rgba(187, 209, 252, 0.1);
     --bg-hover: #f8f9fb;
+
+    /* Slate Colors */
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+    --slate-950: #020617;
   }
   .dark {
     --primary-default: #2c71f6;
@@ -34,17 +48,32 @@
 
     /* Text Colors */
     --text-primary: #ffffff;
+    --text-secondary: #bbd1fc;
     --text-inverse: #202020;
     --text-disabled: #bbd1fc;
 
     /* Background Colors */
     --bg-disabled: rgba(51, 56, 66, 0.1);
     --bg-hover: #2e2e2e;
+
+    /* Slate Colors - Inverted for dark mode */
+    --slate-50: #0f172a;
+    --slate-100: #020617;
+    --slate-200: #1e293b;
+    --slate-300: #334155;
+    --slate-400: #475569;
+    --slate-500: #64748b;
+    --slate-600: #94a3b8;
+    --slate-700: #cbd5e1;
+    --slate-800: #e2e8f0;
+    --slate-900: #f1f5f9;
+    --slate-950: #f8fafc;
+
   }
 }
 
-@theme inline{
-      /* Primary Colors */
+@theme inline {
+  /* Primary Colors */
   --color-primary-default: var(--primary-default);
   --color-primary-hover: var(--primary-hover);
   --color-primary-disabled: var(--primary-disabled);
@@ -57,10 +86,23 @@
 
   /* Text Colors */
   --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
   --color-text-inverse: var(--text-inverse);
   --color-text-disabled: var(--text-disabled);
 
   /* Background Colors */
   --color-bg-disabled: var(--bg-disabled);
   --color-bg-hover: var(--bg-hover);
+
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
 }

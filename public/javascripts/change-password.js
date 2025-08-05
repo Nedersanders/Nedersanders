@@ -1,6 +1,6 @@
 // public/javascripts/change-password.js
 
-document.addEventListener('DOMContentLoaded', function () {
+export function initChangePassword() {
   const form = document.querySelector('form[action="/auth/change-password"]');
   if (!form) return;
 
@@ -49,4 +49,4 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => alertBox.remove(), 5000);
       });
   });
-});
+}

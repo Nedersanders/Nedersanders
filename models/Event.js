@@ -30,6 +30,15 @@ class Event {
         return rows.map(row => new Event(row));
     }
 
+    static async findByPk(id) {
+        const query = 'SELECT * FROM events WHERE id = $1';
+        const { rows } = await pgPool.query(query, [id]);
+        if (rows.length === 0) {
+            return null;
+        }
+        return new Event(rows[0]);
+    }
+
     toSafeObject() {
         return {
             id: this.id,

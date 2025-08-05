@@ -206,32 +206,5 @@
             </div>
         </div>
     </div>
-    
-    <script src="/dist/js/main.min.js"></script>
-    <script>
-        // Add some interactive feedback
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const inputs = document.querySelectorAll('.form-input');
-            
-            // Add focus/blur effects
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Add loading state to submit button
-            form.addEventListener('submit', function() {
-                const btn = this.querySelector('.btn');
-                btn.innerHTML = 'Inloggen...';
-                btn.disabled = true;
-            });
-        });
-    </script>
 </body>
 </html>

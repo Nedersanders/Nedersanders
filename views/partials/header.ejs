@@ -1,81 +1,231 @@
 <!DOCTYPE html>
 <html lang="nl" class="h-full">
+  <head>
+    <title>
+      <%= typeof title !== 'undefined' ? title : 'Nedersanders.nl' %>
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/dist/css/style.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <title><%= typeof title !== 'undefined' ? title : 'Nedersanders.nl' %></title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/dist/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
-</head>
+  <body class="h-full flex flex-col light">
+    <!-- Navigation -->
+    <nav
+      class="bg-slate-200 backdrop-blur-sm shadow-lg relative w-full top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-2">
+          <div class="flex items-center">
+            <div class="flex items-center justify-center w-20 h-auto">
+              <a href="/">
+                <img
+                  src="/images/NederSandersLogo.png"
+                  alt="Nedersanders Logo"
+                  class="w-full h-auto"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <a href="/" class="text-text-primary font-semibold">Home</a>
+            <a
+              href="/tickets"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Tickets</a
+            >
+            <a
+              href="/evenementen"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Evenementen</a
+            >
+            <a
+              href="#contact"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Contact</a
+            >
+            <% if (typeof user !== 'undefined' && user) { %>
+            <a
+              href="/user/account"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Mijn Account</a
+            >
+            <a
+              href="/auth/logout"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Uitloggen</a
+            >
+            <% } else { %>
+            <a
+              href="/auth/login"
+              class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200"
+              >Inloggen</a
+            >
+            <% } %>
 
-<body class="h-full flex flex-col light">
-  <!-- Navigation -->
-  <nav class="bg-white/95 backdrop-blur-sm shadow-lg relative w-full top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-2">
-        <div class="flex items-center">
-          <div class="flex items-center justify-center w-20 h-auto">
-            <a href="/" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent"> <!-- TODO: Get PNG logo-->
-              <img src="/images/NederSandersLogo.png" alt="Nedersanders Logo" class="w-full h-auto" />
-            </a>
+            <!-- Settings Dropdown -->
+            <div class="relative">
+              <button
+                id="settings-dropdown-toggle"
+                class="text-text-secondary hover:text-text-primary font-medium transition-colors duration-200 flex items-center"
+                aria-expanded="false"
+              >
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                Instellingen
+              </button>
+              
+              <!-- Dropdown Menu -->
+              <div
+                id="settings-dropdown-menu"
+                class="absolute right-0 mt-2 w-56 bg-slate-50 rounded-lg shadow-xl border border-slate-200 opacity-0 pointer-events-none transform translate-y-1 transition-all duration-200 ease-out z-50"
+                style="visibility: hidden;"
+              >
+                <div class="py-2">
+                  <!-- Dark Mode Toggle -->
+                  <div class="px-4 py-2 hover:bg-slate-50 transition-colors duration-200">
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm font-medium text-text-primary">Donkere modus</span>
+                      <label class="inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          value=""
+                          class="sr-only peer"
+                          id="toggle-theme"
+                        />
+                        <div
+                          class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"
+                        ></div>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <!-- Additional settings can be added here -->
+                  <!-- Divider -->
+                  <hr class="my-1 border-slate-200">
+                  
+                  <!-- Placeholder for future settings -->
+                  <div class="px-4 py-2 text-sm text-text-secondary">
+                    Meer instellingen komen binnenkort...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="text-text-primary hover:text-text-secondary cursor-pointer"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
         </div>
-        <div class="hidden md:flex space-x-8">
-          <a href="/" class="text-blue-600 font-semibold">Home</a>
-          <a href="/tickets"
-            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Tickets</a>
-          <a href="/evenementen"
-            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Evenementen</a>
-          <a href="#contact"
-            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Contact</a>
-          <% if (typeof user !== 'undefined' && user) { %>
-            <a href="/user/account" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Mijn Account</a>
-            <a href="/auth/logout" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Uitloggen</a>
-          <% } else { %>
-            <a href="/auth/login" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Inloggen</a>
-          <% } %>
-        </div>
-        <div class="md:hidden">
-          <button id="mobile-menu-toggle" class="text-gray-700 hover:text-blue-600 cursor-pointer">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 h-full w-80 bg-slate-50 shadow-xl z-[60] transform translate-x-full transition-transform duration-300 ease-in-out max-w-[90vw]"
+    >
+      <div class="p-6">
+        <!-- Header with close button -->
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-2xl font-semibold text-text-secondary">Menu</h2>
+          <button
+            id="mobile-menu-close"
+            class="w-8 h-8 flex items-center justify-center text-text-secondary hover:text-text-primary cursor-pointer"
+          >
+            <span class="text-2xl">&times;</span>
           </button>
         </div>
+
+        <!-- Menu Links -->
+        <div class="space-y-6">
+          <a
+            href="/"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Home</a
+          >
+          <a
+            href="/tickets"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Tickets</a
+          >
+          <a
+            href="/evenementen"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Evenementen</a
+          >
+          <a
+            href="#contact"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Contact</a
+          >
+          <% if (typeof user !== 'undefined' && user) { %>
+          <a
+            href="/user/account"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Mijn Account</a
+          >
+          <a
+            href="/auth/logout"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Uitloggen</a
+          >
+          <% } else { %>
+          <a
+            href="/auth/login"
+            class="block text-text-secondary text-xl hover:text-text-primary transition-colors py-3 border-b border-gray-200"
+            >Inloggen</a
+          >
+          <% } %>
+          
+          <!-- Settings Section for Mobile -->
+          <div class="pt-4 mt-4 border-t border-gray-200">
+            <h3 class="text-lg font-semibold text-text-primary mb-4">Instellingen</h3>
+            
+            <!-- Dark Mode Toggle for Mobile -->
+            <div class="flex items-center justify-between py-3">
+              <span class="text-text-secondary text-lg">Donkere modus</span>
+              <label class="inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  value=""
+                  class="sr-only peer"
+                  id="toggle-theme-mobile"
+                />
+                <div
+                  class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"
+                ></div>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu"
-    class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-[60] transform translate-x-full transition-transform duration-300 ease-in-out max-w-[90vw]">
-    <div class="p-6">
-      <!-- Header with close button -->
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl font-semibold text-gray-900">Menu</h2>
-        <button id="mobile-menu-close"
-          class="w-8 h-8 flex items-center justify-center text-gray-900 hover:text-blue-600 cursor-pointer">
-          <span class="text-2xl">&times;</span>
-        </button>
-      </div>
-
-      <!-- Menu Links -->
-      <div class="space-y-6">
-        <a href="/" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Home</a>
-        <a href="/tickets" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Tickets</a>
-        <a href="/evenementen" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Evenementen</a>
-        <a href="#contact" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Contact</a>
-        <% if (typeof user !== 'undefined' && user) { %>
-          <a href="/user/account" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Mijn Account</a>
-          <a href="/auth/logout" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Uitloggen</a>
-        <% } else { %>
-          <a href="/auth/login" class="block text-gray-900 text-xl hover:text-blue-600 transition-colors py-3 border-b border-gray-200">Inloggen</a>
-        <% } %>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Main Content Area -->
-  <main class="flex-1">
+    <!-- Main Content Area -->
+    <main class="flex-1"></main>
+  </body>
+</html>
