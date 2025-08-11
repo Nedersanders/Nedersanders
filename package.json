@@ -17,7 +17,7 @@
     "check-sessions": "node scripts/check-sessions.js"
   },
   "dependencies": {
-    "@sentry/node": "^9.42.0",
+    "@sentry/node": "^10.3.0",
     "@sentry/profiling-node": "^9.42.0",
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
