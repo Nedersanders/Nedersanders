@@ -47,7 +47,7 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-terser": "^0.4.4",
-    "cssnano": "^6.0.1",
+    "cssnano": "^7.1.1",
     "nodemon": "^3.1.10",
     "postcss-import": "^16.0.0",
     "rollup": "^4.0.0",
