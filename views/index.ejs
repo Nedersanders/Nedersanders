@@ -1,123 +1,80 @@
 <%- include('./partials/header.ejs') %>
 <!-- Desktop section -->
-<section class="w-full h-full p-4 md:grid grid-rows-2 hidden">
+<section class="w-full p-4 md:grid grid-rows-2 hidden">
   <!-- Top row with title and event cards -->
-  <div class="w-full h-full grid grid-cols-3">
-    <div class="col-span-2 h-full">
-      <div class="flex items-center justify-center m-16">
+  <div class="w-full grid grid-cols-3">
+    <div class="col-span-2 h-full w-fit">
+      <div class="flex items-center flex-col justify-center m-16">
         <h1 class="text-5xl font-semibold">
           Het Platform voor Sander, <br />
           door Sanders
         </h1>
+        <p class="text-lg mt-4 w-xl">
+          Sander is hier nog even druk aan het doorbeuken, maar binnenkort kan
+          je hier meer info vinden, zelf evenementen aanmaken om te doen met
+          andere Sanders, en nog veel meer!
+          <br />
+          <br />
+          Natuurlijk kan je al wel je tickets kopen voor het Sander Event 2025!
+        </p>
+        <h2 class="text-3xl font-semibold">Sponsor worden?</h2>
+        <p class="text-lg mt-4">
+          Alle Sander-Events zijn non-profit, en kosten best wel wat tijd om te
+          organiseren. Verder bouwen we de website uit tot een echte kern van
+          onze community, en hier komen ook kosten bij kijken. <br>
+          Wil jij ons helpen om dit platform te onderhouden en verder uit te bouwen? Word dan sponsor! <br>
+          <span class="font-semibold text-primary">Krijg de unieke sponsor badge en vermelding op de website!</span>
+          Sponsor worden doe je door een sponsor ticket te kopen op de event pagina. Dit kan ook als je niet naar het event komt.
+        </p>
       </div>
-      <div class="p-4 grid grid-cols-6 items-center justify-center gap-2">
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div class="w-full h-auto aspect-square">
-          <img
-            src="https://picsum.photos/200"
-            alt="Random Image"
-            class="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-      </div>
+
+      <div class="p-4 grid grid-cols-6 items-center justify-center gap-2"></div>
     </div>
     <!-- Right column with event cards -->
-    <div
-      class="col-span-1 h-full flex flex-col gap-4 p-4 bg-slate-200 border border-slate-300 rounded-2xl"
-    >
-      <div class="flex items-center justify-center">
-        <h3 class="text-4xl font-bold text-text-primary">Aankomende evenementen</h3>
-      </div>
-      <!-- First Event card -->
-      <div class="flex items-center justify-center">
-        <div class="w-full max-w-lg relative">
-          <img
-            src="/images/sanderevent-2025/sanderevent.jpeg"
-            alt="Evenement"
-            class="object-cover rounded-md h-64 w-full border shadow"
-          />
-          <div
-            class="absolute top-0 left-0 w-full flex rounded-t-md bg-slate-50 py-2 px-2 justify-between items-center"
-          >
-            <h3 class="text-lg font-bold">Sander Event 2025</h3>
-            <div class="flex items-center gap-2">
-              <button class="btn btn-md btn-primary">Koop Ticket</button>
-              <button class="btn btn-md btn-secondary">Meer Info</button>
+    <div class="col-span-1 flex w-full justify-center">
+      <div
+        class="w-fit h-full flex flex-col gap-4 p-4 bg-slate-200 border border-slate-300 rounded-2xl"
+      >
+        <div class="flex items-center justify-center">
+          <h3 class="text-4xl font-bold text-text-primary">
+            Aankomende evenementen
+          </h3>
+        </div>
+        <!-- First Event card -->
+        <% for( let index = 0; index < events.length; index++ ) { %>
+        <div class="flex items-center justify-center">
+          <div class="w-full max-w-lg relative">
+            <img
+              src="/images/sanderevent-2025/sanderevent.jpeg"
+              alt="Evenement"
+              class="object-contain rounded-md h-64 w-full border shadow"
+            />
+            <div
+              class="absolute top-0 left-0 w-full flex rounded-t-md bg-slate-50 py-2 px-2 justify-between items-center"
+            >
+              <h3 class="text-lg font-bold"><%= events[index].title %></h3>
+            </div>
+            <div
+              class="absolute bottom-0 left-0 w-full flex flex-col gap-2 rounded-b-md bg-slate-50 py-2 px-2 justify-between"
+            >
+              <span class="font-semibold min-w-20 text-slate-500"
+                >📍 <%= events[index].location %></span
+              >
+              <span class="font-semibold min-w-20 text-slate-500"
+                >💶 € <%= events[index].price %></span
+              >
+              <div class="flex items-center gap-2">
+                <a href="/tickets">
+                  <button class="btn btn-md btn-primary">Koop Ticket</button>
+                </a>
+                <a href="/tickets#info-section">
+                  <button class="btn btn-md btn-secondary">Meer Info</button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Second Event card -->
-      <div class="flex items-center justify-center">
-        <div class="w-full max-w-lg relative">
-          <img
-            src="/images/sanderevent-2025/sanderevent.jpeg"
-            alt="Evenement"
-            class="object-cover rounded-md h-64 w-full border shadow"
-          />
-          <div
-            class="absolute top-0 left-0 w-full flex rounded-t-md bg-slate-50 py-2 px-2 justify-between items-center"
-          >
-            <h3 class="text-lg font-bold">Sander Event 2025</h3>
-            <div class="flex items-center gap-2">
-              <button class="btn btn-md btn-primary">Koop Ticket</button>
-              <button class="btn btn-md btn-secondary">Meer Info</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Third Event card -->
-      <div class="flex items-center justify-center">
-        <div class="w-full max-w-lg relative">
-          <img
-            src="/images/sanderevent-2025/sanderevent.jpeg"
-            alt="Evenement"
-            class="object-cover rounded-md h-64 w-full border shadow"
-          />
-          <div
-            class="absolute top-0 left-0 w-full flex rounded-t-md bg-slate-50 py-2 px-2 justify-between items-center"
-          >
-            <h3 class="text-lg font-bold">Sander Event 2025</h3>
-            <div class="flex items-center gap-2">
-              <button class="btn btn-md btn-primary">Koop Ticket</button>
-              <button class="btn btn-md btn-secondary">Meer Info</button>
-            </div>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
   </div>
@@ -125,59 +82,69 @@
   <!-- Bottom Row - Photo Album -->
 </section>
 <!-- Mobile section -->
-<section class="w-full h-full flex flex-col md:hidden p-4 gap-4">
-  <div class="w-full h-auto aspect-video flex items-center justify-center">
+<section class="w-full flex flex-col md:hidden p-4 gap-4">
+  <div
+    class="w-full h-auto aspect-video flex flex-col items-center justify-center"
+  >
     <h1 class="text-4xl font-semibold text-center">
       Het Platform voor Sander, <br />
       door Sanders
     </h1>
+    <p class="text-lg mt-4 text-center">
+      Sander is hier nog even druk aan het doorbeuken, maar binnenkort kan je
+      hier meer info vinden, zelf evenementen aanmaken om te doen met andere
+      Sanders, en nog veel meer!
+      <br />
+      <br />
+      Natuurlijk kan je al wel je tickets kopen voor het Sander Event 2025!
+      <h2 class="text-2xl font-semibold">Sponsor worden?</h2>
+      <p class="text-lg mt-4">
+        Alle Sander-Events zijn non-profit, en kosten best wel wat tijd om te
+        organiseren. Verder bouwen we de website uit tot een echte kern van
+        onze community, en hier komen ook kosten bij kijken. <br />
+        Wil jij ons helpen om dit platform te onderhouden en verder uit te bouwen? Word dan sponsor! <br />
+          <span class="font-semibold text-primary">Krijg de unieke sponsor badge en vermelding op de website!</span>
+          Sponsor worden doe je door een sponsor ticket te kopen op de event pagina. Dit kan ook als je niet naar het event komt.
+        </p>
+    </p>
   </div>
-  <div class="w-full aspect-video p-4 relative items-center justify-center">
-    <img
-      src="/images/sanderevent-2025/sanderevent.jpeg"
-      alt="Evenement"
-      class="object-cover rounded-2xl h-64 w-full border shadow"
-    />
-    <div
-      class="absolute top-0 left-0 w-full flex flex-col rounded-t-2xl bg-slate-50 py-2 px-4"
-    >
-      <h3 class="text-2xl pl-2">Sander Event 2025</h3>
-      <div class="flex items-center gap-2">
-        <button class="btn btn-lg btn-primary">Koop Ticket</button>
-        <button class="btn btn-lg btn-secondary">Meer Info</button>
+  <h2 class="text-2xl font-semibold text-center">Aankomende evenementen</h2>
+  <hr />
+  <% for( let index = 0; index < events.length; index++ ) { %>
+  <div class="flex items-center justify-center">
+    <div class="w-full max-w-lg relative">
+      <img
+        src="/images/sanderevent-2025/sanderevent.jpeg"
+        alt="Evenement"
+        class="object-cover rounded-md h-128 w-full border shadow"
+      />
+      <div
+        class="absolute top-0 left-0 w-full flex rounded-t-md bg-slate-50 py-2 px-2 justify-between items-center"
+      >
+        <h3 class="text-lg font-bold"><%= events[index].title %></h3>
+      </div>
+      <div
+        class="absolute bottom-0 left-0 w-full flex flex-col gap-2 rounded-b-md bg-slate-50 py-2 px-2 justify-between"
+      >
+        <span class="font-semibold min-w-20 text-slate-500"
+          >📍 <%= events[index].location %></span
+        >
+        <span class="font-semibold min-w-20 text-slate-500"
+          >💶 € <%= events[index].price %></span
+        >
+        <div class="flex items-center gap-2">
+          <a href="/tickets">
+            <button class="btn btn-md btn-primary">Koop Ticket</button>
+          </a>
+          <a href="/tickets#info-section">
+            <button class="btn btn-md btn-secondary">Meer Info</button>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-  <div class="w-full h-auto aspect-square grid grid-cols-2 gap-2">
-    <div class="w-full h-auto aspect-square">
-      <img
-        src="https://picsum.photos/200"
-        alt="Random Image"
-        class="w-full h-full object-cover rounded-lg"
-      />
-    </div>
-    <div class="w-full h-auto aspect-square">
-      <img
-        src="https://picsum.photos/200"
-        alt="Random Image"
-        class="w-full h-full object-cover rounded-lg"
-      />
-    </div>
-    <div class="w-full h-auto aspect-square">
-      <img
-        src="https://picsum.photos/200"
-        alt="Random Image"
-        class="w-full h-full object-cover rounded-lg"
-      />
-    </div>
-    <div class="w-full h-auto aspect-square">
-      <img
-        src="https://picsum.photos/200"
-        alt="Random Image"
-        class="w-full h-full object-cover rounded-lg"
-      />
-    </div>
-  </div>
+  <% } %>
+  <div class="w-full h-auto aspect-square grid grid-cols-2 gap-2"></div>
 </section>
 
 <%-include('./partials/footer.ejs') %>

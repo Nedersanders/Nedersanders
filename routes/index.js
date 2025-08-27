@@ -3,18 +3,23 @@ var router = express.Router();
 const Event = require('../models/Event');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Nedersanders Festival 2025' });
+router.get('/', async function (req, res, next) {
+  const events = await Event.findAll({
+    limit: 3,
+    order: [['event_date', 'ASC']],
+  });
+  console.log('Fetched events:', events);
+  res.render('index', { title: 'Nedersanders Festival 2025', events });
 });
 
 /* GET tickets page. */
 router.get('/tickets', function (req, res, next) {
   res.render('tickets', { title: 'Tickets - Nedersanders Festival 2025' });
 });
-
+ 
 /* GET dashboard - redirect to auth dashboard */
 router.get('/dashboard', function (req, res, next) {
-  if (!req.session.user) {
+  if (!req.session.user) { 
     return res.redirect('/auth/login');
   }
   res.redirect('/auth/dashboard');
