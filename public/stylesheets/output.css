@@ -430,6 +430,9 @@
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
+  .mb-16 {
+    margin-bottom: calc(var(--spacing) * 16);
+  }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
   }
@@ -484,6 +487,9 @@
   }
   .h-64 {
     height: calc(var(--spacing) * 64);
+  }
+  .h-128 {
+    height: calc(var(--spacing) * 128);
   }
   .h-auto {
     height: auto;
@@ -823,6 +829,10 @@
   }
   .bg-yellow-50 {
     background-color: var(--color-yellow-50);
+  }
+  .object-contain {
+    -o-object-fit: contain;
+       object-fit: contain;
   }
   .object-cover {
     -o-object-fit: cover;
