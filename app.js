@@ -14,23 +14,23 @@ const rateLimit = require("express-rate-limit");
 
 // Import routes
 var indexRouter = require("./routes/index");
-var authRouter = require("./routes/auth");
-var userRouter = require("./routes/user");
-var apiRouter = require("./routes/api");
+var authRouter = require("./routes/auth.js");
+var userRouter = require("./routes/user.js");
+var apiRouter = require("./routes/api.js");
 
 // Import middleware
 const {
   attachUser,
   isAuthenticated,
   validateSession,
-} = require("./middleware/auth");
+} = require("./middleware/auth.js");
 
 // Import database
-const { testConnection, initDatabase } = require("./config/database");
+const { testConnection, initDatabase } = require("./config/database.js");
 
 // Import session manager
-const sessionManager = require("./utils/sessionManager");
-const initSessionDatabase = require("./scripts/init-sessions");
+const sessionManager = require("./utils/sessionManager.js");
+const initSessionDatabase = require("./scripts/init-sessions.js");
 
 var app = express();
 
