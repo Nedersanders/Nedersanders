@@ -142,4 +142,6 @@ lib64/
 
 # jetbrains IDEs
 .idea/laravel-idea.xml
+
 data/sessions.db
+data/*
