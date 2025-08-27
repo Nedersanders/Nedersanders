@@ -162,4 +162,33 @@ router.get('/events', async (req, res) => {
     }
 });
 
+router.get('/events/:id', async (req, res) => {
+    try {
+        const eventId = parseInt(req.params.id);
+        if (isNaN(eventId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Ongeldig evenement ID'
+            });
+        }
+        const event = await Event.findByPk(eventId);
+        if (!event) {
+            return res.status(404).json({
+                success: false,
+                message: 'Evenement niet gevonden'
+            });
+        }
+        res.json({
+            success: true,
+            event: event.toSafeObject()
+        });
+    } catch (error) {
+        console.error('Error fetching event:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Er is een fout opgetreden bij het ophalen van het evenement'
+        });
+    }
+});
+
 module.exports = router;

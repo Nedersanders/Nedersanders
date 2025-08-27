@@ -1,46 +1,60 @@
 // Main JavaScript file for Nedersanders.nl
-(function() {
-  'use strict';
+(function () {
+  "use strict";
+
+  function removeAppliedThemes(themeList) {
+    for (let i = 0; i < themeList.length; i++) {
+      document.body.classList.remove(themeList[i]);
+    }
+  }
+  function checkThemes() {
+    let availableThemes = ["light", "dark"];
+    let currentTheme = localStorage.getItem("theme") || "light";
+    let localStorageThemeOveride = false;
+    if (
+      localStorage.getItem("theme") &&
+      availableThemes.includes(currentTheme)
+    ) {
+      localStorageThemeOveride = true;
+    }
+    // Check if the browser supports prefers-color-scheme
+    if (window.matchMedia) {
+      // Check the user's preferred color scheme
+      const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkModeQuery.matches) {
+        // User prefers dark mode
+        console.log("Dark mode is preferred by the user");
+        // If no localStorage override, set to dark
+        if (!localStorageThemeOveride) {
+          currentTheme = "dark";
+        }
+      } else {
+        // User prefers light mode
+        console.log("Light mode is preferred by the user");
+        // If no localStorage override, set to light
+        if (!localStorageThemeOveride) {
+          currentTheme = "light";
+        }
+      }
+      // Apply the theme
+      removeAppliedThemes(availableThemes);
+      document.body.classList.add(currentTheme);
+    } else {
+      console.warn(
+        "Browser does not support prefers-color-scheme, defaulting to light mode"
+      );
+      // Fallback to light mode if prefers-color-scheme is not supported
+      removeAppliedThemes(availableThemes);
+      document.body.classList.add("light");
+    }
+  }
+  
+  // Expose functions globally for use by other scripts
+  window.checkThemes = checkThemes;
+  window.removeAppliedThemes = removeAppliedThemes;
   
   // Initialize when DOM is ready
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('Nedersanders.nl dev environment loaded successfully!');
-    
-    // Add easter egg for development
-    const title = document.querySelector('h1');
-    if (title) {
-      let clickCount = 0;
-      title.addEventListener('click', function() {
-        clickCount++;
-        if (clickCount === 5) {
-          this.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7)';
-          this.style.webkitBackgroundClip = 'text';
-          this.style.webkitTextFillColor = 'transparent';
-          this.style.animation = 'rainbow 2s infinite';
-          console.log('🎉 Easter egg activated! You found the rainbow mode!');
-        }
-      });
-    }
-    const rainbowButton = document.getElementById('ignore-event-button');
-    if (rainbowButton) {
-      rainbowButton.addEventListener('click', function() {
-        toggleRainbowBarf();
-      });
-    }
+  document.addEventListener("DOMContentLoaded", function () {
+    checkThemes();
   });
-  
 })();
-
-// Function to enable rainbow barf effect
-function toggleRainbowBarf() {
-  const allElements = document.querySelectorAll('div');
-  allElements.forEach(el => {
-    if(el.classList.contains('rainbow-barf')) {
-      el.classList.remove('rainbow-barf');
-    }
-    else {
-      el.classList.add('rainbow-barf');
-    }
-  });
-  console.log('🌈 Rainbow barf effect toggled!');
-}

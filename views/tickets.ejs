@@ -1,75 +1,146 @@
 <%-include('./partials/header.ejs') %>
 
-    <!-- Weeztix Ticket Sales Section -->
-    <section id="tickets" class="py-16 px-4 md:px-8 lg:px-16 max-w-none bg-white/10 backdrop-blur-sm mt-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">🎫 Tickets Bestellen</h2>
-                <p class="text-xl md:text-2xl font-semibold text-blue-100 mb-8 leading-relaxed">Veilig en betrouwbaar via Weeztix (NOT YET INTEGRATED)</p>
-            </div>
-            
-            <!-- Weeztix Iframe Container -->
-            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8 border border-white/20 transition-all duration-300">
-                <div class="text-center mb-4">
-                    <p class="text-gray-600 text-sm">
-                        🔒 Veilige betaling via Weeztix • Directe bevestiging per email
-                    </p>
-                </div>
-                
-                <!-- Replace this src with your actual Weeztix embed URL -->
-                <iframe 
-                    src="https://weeztix.com/embed/your-event-id-here" 
-                    class="weeztix-frame w-full h-[600px] md:h-[700px]"
-                    title="Nedersanders Festival 2025 Tickets"
-                    loading="lazy">
-                    <p>Je browser ondersteunt geen iframes. 
-                       <a href="https://weeztix.com/your-event-id-here" target="_blank" class="text-blue-600 underline">
-                           Klik hier om tickets te kopen
-                       </a>
-                    </p>
-                </iframe>
-            </div>
-            
-            <div class="text-center mt-6">
-                <p class="text-white text-sm opacity-80">
-                    Problemen met bestellen? <a href="mailto:tickets@nedersanders.nl" class="text-blue-200 underline hover:text-white">Stuur ons een email</a>
-                </p>
-            </div>
-        </div>
-    </section>
+<!-- Tickets Section with Two Column Layout -->
+<section
+  id="tickets"
+  class="py-16 px-4 mb-16 md:px-8 lg:px-16 max-w-none bg-white/10 backdrop-blur-sm mt-4"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight"
+      >
+        🎫 Tickets Bestellen
+      </h2>
+    </div>
 
-    <!-- Additional Info Section -->
-    <section class="py-16 px-4 md:px-8 lg:px-16 max-w-none">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8 border border-white/20 transition-all duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">📋 Belangrijke Informatie</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <div class="mb-8">
-                            <h4 class="text-xl font-bold text-gray-700 mb-4">🎭 Festival Details</h4>
-                            <div class="space-y-3 text-gray-600">
-                                <div class="flex flex-col sm:flex-row">
-                                    <span class="font-semibold min-w-24">Datum:</span>
-                                    <span>5 Oktober 2025</span>
-                                </div>
-                                <div class="flex flex-col sm:flex-row">
-                                    <span class="font-semibold min-w-24">Locatie:</span>
-                                    <span>TentEvent Evenementen Terein</span>
-                                </div>
-                                <div class="flex flex-col sm:flex-row">
-                                    <span class="font-semibold min-w-24">Vanaf:</span>
-                                    <span>15:00</span>
-                                </div>
-                                <div class="flex flex-col sm:flex-row">
-                                    <span class="font-semibold min-w-24">Leeftijd:</span>
-                                    <span>Alle leeftijden welkom</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Two Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Left Column: Ticket Shop -->
+      <div class="order-1 lg:col-span-1">
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 border border-white/20 transition-all duration-300 h-full"
+        >
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-700 mb-2">
+              🎫 Ticket Shop
+            </h3>
+            <p class="text-gray-600 text-sm">
+              🔒 Veilige betaling via Weeztix • Directe bevestiging per email
+            </p>
+          </div>
+
+          <!-- Replace this src with your actual Weeztix embed URL -->
+         <div id="shop-frame" data-url="https://shop.weeztix.com/f75eaab2-68b8-11f0-a9cb-7e126431635e" style="max-width: 600px; margin:0 auto;"></div>
+        <script src="https://shop.weeztix.com/build/integrate.js"></script>
+
+          <div class="text-center mt-4">
+            <p class="text-gray-600 text-sm">
+              Problemen met bestellen?
+              <a
+                href="mailto:nedersanders@hotmail.com"
+                class="text-blue-600 underline hover:text-blue-800"
+                >Stuur ons een email </a
+              > , of schreeuw even in de app.
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <!-- Right Column: Additional Info -->
+      <div class="order-2 lg:col-span-1" id="info-section">
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 border border-white/20 transition-all duration-300 h-full"
+        >
+          <h3 class="text-2xl font-bold text-gray-700 mb-6">
+            📋 Belangrijke Informatie
+          </h3>
+
+          <!-- Festival Details -->
+          <div class="mb-8">
+            <h4 class="text-xl font-bold text-gray-700 mb-4 flex items-center">
+              <span class="ml-2">Event Details</span>
+            </h4>
+            <div class="space-y-4 text-gray-600">
+              <div
+                class="flex flex-col sm:flex-row border-b border-gray-200 pb-2"
+              >
+                <span class="font-semibold min-w-20 text-gray-700">📅 Datum: &nbsp;</span>
+                <span>5 Oktober 2025</span>
+              </div>
+              <div
+                class="flex flex-col sm:flex-row border-b border-gray-200 pb-2"
+              >
+                <span class="font-semibold min-w-20 text-gray-700"
+                  >📍Locatie: &nbsp;</span
+                >
+                <span><u><a href="https://maps.app.goo.gl/g4zjeZ3W4m2Cbdwf9" target="_blank">Hoge Vuurseweg 11 3744 BB Lage Vuursche</a></u></span>
+              </div>
+              <div
+                class="flex flex-col sm:flex-row border-b border-gray-200 pb-2"
+              >
+                <span class="font-semibold min-w-20 text-gray-700">🕒 Vanaf:&nbsp; </span>
+                <span>15:00</span>
+              </div>
+              <div
+                class="flex flex-col sm:flex-row border-b border-gray-200 pb-2"
+              >
+                <span class="font-semibold min-w-20 text-gray-700"
+                  >👪Leeftijd:&nbsp; </span
+                >
+                <span>Alle leeftijden welkom</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ticket Info -->
+          <div class="mb-8">
+            <h4 class="text-xl font-bold text-gray-700 mb-4 flex items-center">
+              🎟️ <span class="ml-2">Ticket Informatie</span>
+            </h4>
+            <div class="space-y-3 text-gray-600">
+              <div class="bg-green-50 p-4 rounded-lg">
+                <p class="text-sm">
+                  <span class="font-semibold text-green-700">Inclusief:</span>
+                  <ul>
+                    <li>- Toegang tot Sander Event 2025</li>
+                    <li>- Gratis drankjes (bier, fris, en meer)</li>
+                    <li>- Gratis snacks</li>
+                    <li>- Een dikke burger, tegen ticket meerprijs</li>
+                    <li>- Een onvergetelijke ervaring met heel veel Sanders</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+            <p class="mt-2 text-md text-gray-600">
+              Op het event is alles inclusief, je hoeft er geen cent meer uit te geven.
+            </p>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-xl font-bold text-gray-700 mb-4 flex items-center">
+              📞 <span class="ml-2">Contact</span>
+            </h4>
+            <div class="space-y-2 text-gray-600">
+              <p>
+                <span class="font-semibold">Email:</span>
+                <a
+                  href="mailto:nedersanders@hotmail.com"
+                  class="text-blue-600 underline hover:text-blue-800"
+                  >nedersanders@hotmail.com</a
+                >
+              </p>
+              <p>
+                <span class="font-semibold">Dringende vragen:</span>
+                Nedersanders app.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <%-include('./partials/footer.ejs') %>

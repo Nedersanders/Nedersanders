@@ -66,4 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
             closeMobileMenu();
         }
     });
+
+    document.querySelector('#toggle-theme').addEventListener('click', function () {
+        localStorage.setItem('theme', localStorage.getItem('theme') === 'dark' ? 'light' : 'dark');
+        // Check if checkThemes function is available globally
+        if (typeof window.checkThemes === 'function') {
+            window.checkThemes();
+        } else {
+            console.warn('checkThemes function not available');
+        }
+    });
 });

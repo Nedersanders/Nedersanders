@@ -52,11 +52,10 @@
                                 <p class="text-sm text-gray-600 mt-2">
                                     JPG, PNG, WebP of GIF. Max 2MB.
                                 </p>
-                                <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 mt-3 w-full">
+                                <button type="submit" id="profileImageUploadBtn" class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 mt-3 w-full">
                                     Upload Foto
                                 </button>
                             </form>
-                            <script src="/dist/js/profile-image-upload.min.js"></script>
                         </div>
                     </div>
                 </div>
@@ -131,7 +130,6 @@
                         <h2 class="text-xl font-bold mb-4 text-blue-700">Wachtwoord Wijzigen</h2>
                         
                         <form action="/auth/change-password" method="POST" class="space-y-4" id="changePasswordForm">
-                            <script src="/dist/js/change-password.min.js"></script>
                             <div class="mb-4">
                                 <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-2">Huidig Wachtwoord</label>
                                 <input type="password" 

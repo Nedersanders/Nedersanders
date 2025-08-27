@@ -1,229 +1,181 @@
 /* CSS Variables for Colors */
-:root {
-  /* Primary Colors */
-  --color-primary-default: #2C71F6;
-  --color-primary-hover: #2257BE;
-  --color-primary-disabled: #BBD1FC;
-  --color-primary-focus: #2C71F6;
-  
-  /* Secondary Colors */
-  --color-secondary-border: #D8D8DA;
-  --color-secondary-hover: #F8F9FB;
-  --color-secondary-disabled: #BBD1FC;
-  
-  /* Text Colors */
-  --color-text-primary: #202020;
-  --color-text-inverse: #FFFFFF;
-  --color-text-disabled: #BBD1FC;
-  
-  /* Background Colors */
-  --color-bg-disabled: rgba(187, 209, 252, 0.1);
-  --color-bg-hover: #F8F9FB;
-  
-  /* Dark Mode Colors */
-  --color-dark-border: #4A4A4B;
-  --color-dark-hover: #323232;
-  --color-dark-disabled-bg: rgba(187, 209, 252, 0.1);
-  --color-dark-disabled-text: rgba(187, 209, 252, 0.2);
-}
 
 /* Base Button Component */
 .btn {
   @apply inline-flex items-center justify-center font-semibold rounded-md transition-all duration-200 ease-in-out;
   @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
   @apply cursor-pointer select-none;
-  
+
   /* Size Variants */
   &.btn-xl {
     @apply px-6 py-3.5 text-base h-13;
-    
+
     &.btn-icon {
       @apply gap-3;
     }
   }
-  
+
   &.btn-lg {
     @apply px-5 py-3 text-base h-12;
-    
+
     &.btn-icon {
       @apply gap-3;
     }
   }
-  
+
   &.btn-md {
     @apply px-5 py-2.5 text-sm h-9.5;
-    
+
     &.btn-icon {
       @apply gap-3;
     }
   }
-  
+
   &.btn-sm {
     @apply px-3 py-2 text-sm h-9;
-    
+
     &.btn-icon {
       @apply gap-2;
     }
   }
-  
+
   &.btn-xs {
     @apply px-3 py-2 text-xs h-8.5;
-    
+
     &.btn-icon {
       @apply gap-2;
     }
   }
-  
+
   /* Primary Button */
   &.btn-primary {
     @apply text-white;
-    background-color: var(--color-primary-default);
-    
+    @apply bg-primary-default;
+
     &:hover:not(:disabled) {
-      background-color: var(--color-primary-hover);
+      @apply bg-primary-hover;
     }
-    
+
     &:focus {
-      background-color: var(--color-primary-default);
+      @apply bg-primary-default;
       box-shadow: 0 0 0 2px var(--color-primary-focus);
     }
-    
+
     &:disabled {
       @apply cursor-not-allowed;
-      background-color: var(--color-primary-disabled);
-      color: var(--color-text-inverse);
+      @apply bg-primary-disabled;
+      @apply text-text-inverse;
     }
-    
+
     /* Icon styling for primary buttons */
     &.btn-icon svg {
       @apply w-5 h-5 fill-current;
     }
   }
-  
+
   /* Secondary Button */
   &.btn-secondary {
     @apply bg-transparent;
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-secondary-border);
-    
+    @apply text-text-primary;
+    @apply border-2 border-secondary-border;
+
     &:hover:not(:disabled) {
-      background-color: var(--color-secondary-hover);
+      @apply bg-secondary-hover;
     }
-    
+
     &:focus {
       border-color: var(--color-primary-focus);
       box-shadow: 0 0 0 1px var(--color-primary-focus);
     }
-    
+
     &:disabled {
       @apply cursor-not-allowed;
-      background-color: var(--color-bg-disabled);
-      color: var(--color-text-disabled);
-      border-color: var(--color-secondary-disabled);
+      @apply bg-bg-disabled;
+      @apply text-text-disabled;
+      @apply border-secondary-disabled;
     }
-    
+
     /* Icon styling for secondary buttons */
     &.btn-icon svg {
       @apply w-5 h-5;
       fill: var(--color-text-primary);
     }
-    
+
     &:disabled svg {
       fill: var(--color-text-disabled);
     }
   }
-  
+
   /* Text Button */
   &.btn-text {
     @apply bg-transparent border-0 p-0;
-    color: var(--color-primary-default);
-    
+    @apply text-primary-default;
     &:hover:not(:disabled) {
-      color: var(--color-primary-hover);
+      @apply text-primary-hover;
     }
-    
+
     &:focus {
       @apply ring-2 ring-blue-500 ring-offset-2;
-      color: var(--color-primary-default);
+      @apply text-primary-default;
     }
-    
+
     &:disabled {
       @apply cursor-not-allowed;
-      color: var(--color-text-disabled);
+      @apply text-text-disabled;
     }
-    
+
     /* Override size padding for text buttons */
     &.btn-xl {
       @apply px-0 py-0 h-auto;
     }
-    
+
     &.btn-lg {
       @apply px-0 py-0 h-auto;
     }
-    
+
     &.btn-md {
       @apply px-0 py-0 h-auto;
     }
-    
+
     &.btn-sm {
       @apply px-0 py-0 h-auto;
     }
-    
+
     &.btn-xs {
       @apply px-0 py-0 h-auto;
     }
-    
+
     /* Icon styling for text buttons */
     &.btn-icon svg {
       @apply w-5 h-5;
       fill: var(--color-primary-default);
     }
-    
+
     &:hover:not(:disabled) svg {
       fill: var(--color-primary-hover);
     }
-    
+
     &:disabled svg {
       fill: var(--color-text-disabled);
     }
   }
-  
+
   /* Icon Position Modifiers */
   &.btn-icon-prefix {
     @apply flex-row;
   }
-  
+
   &.btn-icon-suffix {
     @apply flex-row-reverse;
   }
-  
+
   /* Loading State */
   &.btn-loading {
     @apply cursor-wait;
-    
+
     &::before {
       @apply inline-block w-4 h-4 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent;
-      content: '';
-    }
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-secondary-border: var(--color-dark-border);
-    --color-secondary-hover: var(--color-dark-hover);
-    --color-bg-disabled: var(--color-dark-disabled-bg);
-    --color-text-disabled: var(--color-dark-disabled-text);
-  }
-  
-  .btn {
-    &.btn-secondary {
-      color: var(--color-text-inverse);
-      
-      &.btn-icon svg {
-        fill: var(--color-text-inverse);
-      }
+      content: "";
     }
   }
 }
@@ -231,22 +183,22 @@
 /* Button Group Component */
 .btn-group {
   @apply inline-flex rounded-md shadow-sm;
-  
+
   .btn {
     @apply relative focus:z-10;
-    
+
     &:not(:first-child):not(:last-child) {
       @apply rounded-none;
     }
-    
+
     &:first-child {
       @apply rounded-r-none;
     }
-    
+
     &:last-child {
       @apply rounded-l-none;
     }
-    
+
     &:not(:first-child) {
       @apply -ml-px;
     }
@@ -256,23 +208,23 @@
 /* Utility Classes for Icons */
 .btn-icon-only {
   @apply aspect-square px-0;
-  
+
   &.btn-xl {
     @apply w-13;
   }
-  
+
   &.btn-lg {
     @apply w-12;
   }
-  
+
   &.btn-md {
     @apply w-9.5;
   }
-  
+
   &.btn-sm {
     @apply w-9;
   }
-  
+
   &.btn-xs {
     @apply w-8.5;
   }
@@ -291,11 +243,12 @@
 /* Gradient Button Variant */
 .btn-gradient {
   @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
-  
+  @apply shadow-lg shadow-cyan-500/50;
+
   &:hover:not(:disabled) {
     @apply from-blue-600 to-blue-700;
   }
-  
+
   &:disabled {
     @apply from-gray-300 to-gray-400 cursor-not-allowed;
   }
